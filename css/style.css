@@ -171,6 +171,10 @@ input {
     background: #b81029;
 }
 
+.mobile-nav-toggle {
+    display: none;
+}
+
 
 /* ORDER BUTTON */
 
@@ -1707,46 +1711,105 @@ input {
     .header-container {
         min-height: auto;
 
-        padding: 15px 20px;
+        padding: 10px 16px;
 
         flex-wrap: wrap;
+        gap: 8px;
     }
 
     .hardees-logo {
-        width: 130px;
+        width: 118px;
+    }
+
+    .mobile-nav-toggle {
+        order: 1;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        width: 40px;
+        height: 40px;
+        padding: 7px;
+        border: 1px solid #dddddd;
+        border-radius: 5px;
+        background: #ffffff;
+        cursor: pointer;
+    }
+
+    .mobile-nav-toggle span {
+        display: block;
+        width: 20px;
+        height: 2px;
+        border-radius: 2px;
+        background: #222222;
+    }
+
+    .mobile-nav-toggle[aria-expanded="true"] {
+        border-color: #e31837;
+    }
+
+    .mobile-nav-toggle:focus-visible {
+        outline: 3px solid rgba(227, 24, 55, 0.25);
+        outline-offset: 2px;
     }
 
     .navigation {
         order: 3;
-
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
         width: 100%;
-
-        overflow-x: auto;
-
         justify-content: flex-start;
+        gap: 0;
+        padding: 8px 0 0;
+        border-top: 1px solid #eeeeee;
+        overflow: visible;
+    }
 
-        padding-bottom: 5px;
+    .header.navigation-open .navigation {
+        display: flex;
     }
 
     .navigation a {
+        padding: 10px 8px;
+        border-bottom: 1px solid #eeeeee;
+        font-size: 14px;
         white-space: nowrap;
     }
 
     .order-button {
-        padding: 10px 13px;
+        order: 2;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 9px 10px;
+        font-size: 11px;
     }
 
 
     .hero {
-        min-height: 560px;
+        min-height: 500px;
+    }
+
+    .hero-food-scroll {
+        width: 100%;
+        right: -180px;
+        top: 60px;
+        opacity: 0.4;
+    }
+
+    .hero-food-card {
+        width: 275px;
+        height: 380px;
     }
 
     .hero-content {
-        padding: 70px 20px;
+        padding: 60px 18px;
     }
 
     .hero h1 {
-        font-size: 55px;
+        font-size: clamp(38px, 8vw, 52px);
     }
 
     .hero-description {
@@ -1779,11 +1842,11 @@ input {
 
 
     .section {
-        padding: 70px 20px;
+        padding: 52px 16px;
     }
 
     .section-heading h2 {
-        font-size: 38px;
+        font-size: clamp(30px, 8vw, 36px);
     }
 
 
@@ -1793,11 +1856,11 @@ input {
 
 
     .restaurant-section {
-        padding: 70px 20px;
+        padding: 52px 16px;
     }
 
     .restaurant-text h2 {
-        font-size: 40px;
+        font-size: clamp(32px, 8vw, 38px);
     }
 
 
@@ -1808,7 +1871,7 @@ input {
     }
 
     .offers-container h2 {
-        font-size: 40px;
+        font-size: clamp(32px, 8vw, 38px);
     }
 
     .reward-icon {
@@ -1821,16 +1884,16 @@ input {
 
 
     .careers-content h2 {
-        font-size: 42px;
+        font-size: clamp(32px, 9vw, 40px);
     }
 
 
     .employee-section {
-        padding: 70px 20px;
+        padding: 52px 16px;
     }
 
     .employee-info h2 {
-        font-size: 45px;
+        font-size: clamp(34px, 9vw, 42px);
     }
 
     .employee-features {
@@ -1838,7 +1901,7 @@ input {
     }
 
     .login-card {
-        padding: 25px 20px;
+        padding: 22px 16px;
     }
 
 
@@ -1846,11 +1909,15 @@ input {
         grid-template-columns: 1fr;
     }
 
+    .contact-section {
+        padding: 52px 16px;
+    }
 
     .footer-container {
         grid-template-columns: 1fr 1fr;
 
-        gap: 35px;
+        gap: 28px 20px;
+        padding: 0 16px 36px;
     }
 
     .footer-brand {
@@ -1867,25 +1934,28 @@ input {
 @media (max-width: 450px) {
 
     .header-container {
-        justify-content: center;
+        justify-content: space-between;
     }
 
     .logo-link {
-        width: 100%;
-
-        justify-content: center;
+        width: auto;
     }
 
-    .order-button {
-        display: none;
+    .hardees-logo {
+        width: 108px;
     }
 
     .navigation {
-        justify-content: center;
+        justify-content: flex-start;
     }
 
     .hero h1 {
-        font-size: 45px;
+        font-size: clamp(34px, 10vw, 42px);
+    }
+
+    .hero-food-scroll {
+        right: -220px;
+        opacity: 0.32;
     }
 
     .hero-buttons {

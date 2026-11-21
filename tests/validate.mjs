@@ -25,6 +25,7 @@ if (missing.length) {
 }
 
 const index = readFileSync(resolve(root, "index.html"), "utf8");
+const publicCss = readFileSync(resolve(root, "css/style.css"), "utf8");
 const dashboard = readFileSync(resolve(root, "employee-dashboard.html"), "utf8");
 const adminDashboard = readFileSync(resolve(root, "admin-dashboard.html"), "utf8");
 const dashboardCss = readFileSync(resolve(root, "css/employee-dashboard.css"), "utf8");
@@ -42,6 +43,7 @@ const adminMenuImageHashes = adminMenuImages
 
 const checks = [
   [index.includes('window.location.href') && index.includes('"employee-dashboard.html"'), "successful login redirects to employee-dashboard.html"],
+  [index.includes('id="mobileNavToggle"') && index.includes('aria-controls="primaryNavigation"') && index.includes('role="radiogroup"') && index.includes('siteHeader.classList.toggle("navigation-open"') && publicCss.includes(".header.navigation-open .navigation"), "public site has accessible collapsible mobile navigation"],
   [index.includes('DEMO1001') && index.includes('Demo@123'), "existing demo credentials are present"],
   [index.includes('id="portalRole"') && index.includes('"admin-dashboard.html"') && index.includes('employeeId === "DEMO1001"') && index.includes('password === "Demo@123"'), "staff and admin use shared demo credentials"],
   [adminDashboard.includes("Incoming orders") && adminDashboard.includes("Food Menu Management") && adminDashboard.includes('id="ordersTableBody"') && adminDashboard.includes('id="orderDialog"'), "admin order queue and food menu management are present"],
