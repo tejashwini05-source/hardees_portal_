@@ -1,0 +1,1913 @@
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #ffffff;
+
+    color: #222222;
+
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+
+    color: inherit;
+}
+
+img {
+    max-width: 100%;
+}
+
+button,
+input {
+    font-family: inherit;
+}
+
+
+/* =========================================================
+   DEMO BANNER
+========================================================= */
+
+.demo-banner {
+    width: 100%;
+
+    background: #111111;
+
+    color: #ffffff;
+
+    text-align: center;
+
+    padding: 8px 15px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.5px;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header {
+    position: sticky;
+
+    top: 0;
+
+    z-index: 1000;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #eeeeee;
+
+    box-shadow:
+        0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.header-container {
+    max-width: 1250px;
+
+    margin: auto;
+
+    min-height: 78px;
+
+    padding: 10px 25px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 25px;
+}
+
+
+/* LOGO */
+
+.logo-link {
+    display: flex;
+
+    align-items: center;
+
+    flex-shrink: 0;
+}
+
+.hardees-logo {
+    width: 170px;
+
+    height: auto;
+
+    display: block;
+
+    object-fit: contain;
+}
+
+
+/* NAVIGATION */
+
+.navigation {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 25px;
+
+    flex: 1;
+}
+
+.navigation a {
+    font-size: 14px;
+
+    font-weight: 700;
+
+    color: #333333;
+
+    transition: 0.25s;
+}
+
+.navigation a:hover {
+    color: #e31837;
+}
+
+.navigation .employee-nav {
+    color: #ffffff;
+
+    background: #e31837;
+
+    border: 2px solid #f6c300;
+
+    padding: 10px 15px;
+
+    border-radius: 5px;
+
+    box-shadow: 0 4px 14px rgba(227, 24, 55, 0.28);
+}
+
+.navigation .employee-nav:hover {
+    color: #ffffff;
+
+    background: #b81029;
+}
+
+
+/* ORDER BUTTON */
+
+.order-button {
+    background: #e31837;
+
+    color: #ffffff;
+
+    padding: 13px 20px;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    border-radius: 5px;
+
+    transition: 0.25s;
+
+    white-space: nowrap;
+}
+
+.order-button:hover {
+    background: #b81029;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    min-height: 620px;
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    background:
+        linear-gradient(
+            110deg,
+            #111111 0%,
+            #292929 55%,
+            #444444 100%
+        );
+
+    overflow: hidden;
+}
+
+.hero::after {
+    content: "";
+
+    position: absolute;
+
+    width: 500px;
+
+    height: 500px;
+
+    right: -150px;
+
+    top: -120px;
+
+    border-radius: 50%;
+
+    background: #e31837;
+
+    opacity: 0.18;
+}
+
+.hero-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0.92) 0%,
+            rgba(0, 0, 0, 0.78) 38%,
+            rgba(0, 0, 0, 0.25) 100%
+        );
+
+    z-index: 1;
+}
+
+.hero-food-scroll {
+    position: absolute;
+    z-index: 0;
+    right: -40px;
+    top: 58px;
+    width: 62%;
+    height: 510px;
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent 0%, #000 12%, #000 100%);
+}
+
+.hero-food-track {
+    display: flex;
+    gap: 22px;
+    width: max-content;
+    animation: heroFoodScrollRightToLeft 24s linear infinite;
+}
+
+.hero-food-card {
+    position: relative;
+    width: 390px;
+    height: 510px;
+    flex: none;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    background: #111111;
+}
+
+.hero-food-card img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    opacity: 0.82;
+}
+
+.hero-food-label {
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    bottom: 18px;
+    padding: 12px 15px;
+    border-left: 4px solid #f6c300;
+    background: rgba(17, 17, 17, 0.86);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+}
+
+@keyframes heroFoodScrollRightToLeft {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-824px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-food-track {
+        animation: none;
+    }
+}
+
+.hero-content {
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 1250px;
+
+    width: 100%;
+
+    margin: auto;
+
+    padding: 80px 25px;
+
+    color: #ffffff;
+}
+
+.hero-small {
+    color: #f6c300;
+
+    font-weight: 800;
+
+    font-size: 14px;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 15px;
+}
+
+.hero h1 {
+    font-size: clamp(48px, 7vw, 90px);
+
+    line-height: 0.95;
+
+    font-weight: 900;
+
+    margin-bottom: 25px;
+}
+
+.hero-description {
+    max-width: 550px;
+
+    font-size: 18px;
+
+    color: #eeeeee;
+
+    margin-bottom: 30px;
+}
+
+.hero-buttons {
+    display: flex;
+
+    gap: 15px;
+
+    flex-wrap: wrap;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.primary-button {
+    display: inline-block;
+
+    background: #e31837;
+
+    color: #ffffff;
+
+    padding: 14px 25px;
+
+    border-radius: 5px;
+
+    font-weight: 800;
+
+    font-size: 13px;
+
+    transition: 0.25s;
+}
+
+.primary-button:hover {
+    background: #b81029;
+
+    transform: translateY(-2px);
+}
+
+.secondary-button {
+    display: inline-block;
+
+    border: 2px solid #ffffff;
+
+    color: #ffffff;
+
+    padding: 12px 25px;
+
+    border-radius: 5px;
+
+    font-weight: 800;
+
+    font-size: 13px;
+
+    transition: 0.25s;
+}
+
+.secondary-button:hover {
+    background: #ffffff;
+
+    color: #111111;
+}
+
+.dark-button {
+    display: inline-block;
+
+    background: #111111;
+
+    color: #ffffff;
+
+    padding: 14px 25px;
+
+    border-radius: 5px;
+
+    font-weight: 800;
+}
+
+.dark-button:hover {
+    background: #333333;
+}
+
+.phone-button {
+    display: inline-block;
+
+    padding: 12px 20px;
+
+    border: 2px solid #e31837;
+
+    color: #e31837;
+
+    border-radius: 5px;
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   LOCATION SUMMARY
+========================================================= */
+
+.location-summary {
+    max-width: 1150px;
+
+    margin: -45px auto 0;
+
+    position: relative;
+
+    z-index: 5;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 8px 35px rgba(0, 0, 0, 0.12);
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    border-radius: 8px;
+
+    overflow: hidden;
+}
+
+.location-card {
+    padding: 30px;
+
+    display: flex;
+
+    gap: 18px;
+
+    align-items: flex-start;
+
+    border-right: 1px solid #eeeeee;
+}
+
+.location-card:last-child {
+    border-right: none;
+}
+
+.location-icon {
+    width: 45px;
+
+    height: 45px;
+
+    background: #f6c300;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 20px;
+
+    flex-shrink: 0;
+}
+
+.location-card h3 {
+    font-size: 16px;
+
+    margin-bottom: 5px;
+}
+
+.location-card p {
+    font-size: 13px;
+
+    color: #666666;
+}
+
+.location-card a {
+    color: #e31837;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   GENERAL SECTION
+========================================================= */
+
+.section {
+    padding: 100px 25px;
+}
+
+.section-heading {
+    max-width: 700px;
+
+    margin: 0 auto 55px;
+
+    text-align: center;
+}
+
+.section-heading > span,
+.section-label {
+    color: #e31837;
+
+    font-weight: 800;
+
+    font-size: 13px;
+
+    letter-spacing: 2px;
+}
+
+.section-heading h2 {
+    font-size: 48px;
+
+    line-height: 1;
+
+    margin: 12px 0 18px;
+
+    font-weight: 900;
+}
+
+.section-heading p {
+    color: #666666;
+}
+
+
+/* =========================================================
+   MENU
+========================================================= */
+
+.menu-section {
+    background: #f7f7f7;
+}
+
+.menu-grid {
+    max-width: 1150px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 25px;
+}
+
+.menu-card {
+    background: #ffffff;
+
+    border-radius: 8px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 5px 20px rgba(0, 0, 0, 0.08);
+
+    transition: 0.3s;
+}
+
+.menu-card:hover {
+    transform: translateY(-7px);
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.food-image {
+    height: 210px;
+    position: relative;
+    overflow: hidden;
+    background: #dddddd;
+}
+
+.food-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+}
+
+.menu-card:hover .food-image img {
+    transform: scale(1.04);
+}
+
+.menu-content {
+    padding: 25px;
+}
+
+.menu-category {
+    font-size: 11px;
+
+    font-weight: 800;
+
+    color: #e31837;
+
+    letter-spacing: 1px;
+}
+
+.menu-content h3 {
+    font-size: 21px;
+
+    line-height: 1.2;
+
+    margin: 10px 0;
+}
+
+.menu-content p {
+    color: #666666;
+
+    font-size: 14px;
+
+    margin-bottom: 15px;
+}
+
+.menu-content a {
+    color: #e31837;
+
+    font-size: 12px;
+
+    font-weight: 800;
+}
+
+.menu-stock-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 6px 9px;
+    border-radius: 20px;
+    background: #eaf7ef;
+    color: #16804a;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.out-of-stock .food-image img {
+    filter: grayscale(.65);
+}
+
+.out-of-stock .menu-stock-badge {
+    background: #292929;
+    color: #fff;
+}
+
+.public-menu-badges {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.public-menu-badges .menu-category,
+.food-type-badge,
+.menu-special-badge {
+    padding: 5px 8px;
+    border-radius: 20px;
+    background: #f4f4f2;
+    color: #555;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .3px;
+}
+
+.public-menu-badges .menu-category {
+    background: #fff0f2;
+    color: #c41630;
+}
+
+.food-type-badge.veg {
+    background: #eaf7ef;
+    color: #16804a;
+}
+
+.food-type-badge.non-veg {
+    background: #fff0e8;
+    color: #a64b18;
+}
+
+.menu-special-badge {
+    background: #fff5d8;
+    color: #876300;
+}
+
+.menu-special-badge.chef {
+    background: #f1eafd;
+    color: #6540a0;
+}
+
+.menu-customizations {
+    margin: 14px 0;
+    padding: 10px 12px;
+    border-radius: 6px;
+    background: #f7f7f5;
+}
+
+.menu-content .menu-customizations p {
+    margin: 3px 0;
+    font-size: 11px;
+}
+
+.public-menu-footer {
+    margin: 16px 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.public-menu-footer strong {
+    color: #171717;
+    font-size: 18px;
+}
+
+.public-menu-footer span {
+    color: #777;
+    font-size: 11px;
+}
+
+.public-menu-empty {
+    max-width: 1150px;
+    margin: 20px auto;
+    color: #666;
+    text-align: center;
+}
+
+.public-menu-empty[hidden] {
+    display: none;
+}
+
+.center-button {
+    text-align: center;
+
+    margin-top: 45px;
+}
+
+
+/* =========================================================
+   RESTAURANT
+========================================================= */
+
+.restaurant-section {
+    padding: 100px 25px;
+
+    background: #ffffff;
+}
+
+.restaurant-container {
+    max-width: 1150px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        1.1fr 0.9fr;
+
+    gap: 70px;
+
+    align-items: center;
+}
+
+.restaurant-text h2 {
+    font-size: 52px;
+
+    line-height: 1;
+
+    margin: 15px 0;
+}
+
+.restaurant-text h2 strong {
+    color: #e31837;
+}
+
+.address {
+    font-size: 20px;
+
+    font-weight: 700;
+
+    margin-bottom: 20px;
+}
+
+.restaurant-text > p:not(.address) {
+    color: #666666;
+
+    max-width: 600px;
+
+    margin-bottom: 25px;
+}
+
+.features {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin-bottom: 30px;
+}
+
+.features span {
+    background: #f4f4f4;
+
+    padding: 9px 15px;
+
+    border-radius: 4px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+.restaurant-buttons {
+    display: flex;
+
+    gap: 15px;
+
+    flex-wrap: wrap;
+}
+
+
+/* HOURS */
+
+.hours-card {
+    background: #111111;
+
+    color: #ffffff;
+
+    padding: 35px;
+
+    border-radius: 8px;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.hours-card h3 {
+    color: #f6c300;
+
+    margin-bottom: 20px;
+
+    letter-spacing: 1px;
+}
+
+.hours-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 12px 0;
+
+    border-bottom:
+        1px solid rgba(255,255,255,0.12);
+
+    font-size: 13px;
+}
+
+.hours-row strong {
+    text-align: right;
+}
+
+.breakfast-note {
+    margin-top: 20px;
+
+    padding: 15px;
+
+    background:
+        rgba(246, 195, 0, 0.12);
+
+    border-left:
+        3px solid #f6c300;
+
+    color: #eeeeee;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   OFFERS
+========================================================= */
+
+.offers-section {
+    padding: 80px 25px;
+
+    background: #f6c300;
+}
+
+.offers-container {
+    max-width: 1050px;
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+}
+
+.offers-container h2 {
+    font-size: 50px;
+
+    line-height: 1;
+
+    margin: 15px 0;
+}
+
+.offers-container p {
+    max-width: 500px;
+
+    margin-bottom: 25px;
+}
+
+.reward-icon {
+    width: 180px;
+
+    height: 180px;
+
+    border-radius: 50%;
+
+    background: #e31837;
+
+    color: #ffffff;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 90px;
+
+    transform: rotate(-10deg);
+}
+
+.public-offers-block {
+    max-width: 1050px;
+    margin: 38px auto 0;
+}
+
+.public-offers-heading {
+    margin-bottom: 14px;
+}
+
+.public-offers-heading .section-label {
+    color: #b81029;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1.2px;
+}
+
+.public-offers-heading p {
+    margin: 3px 0 0;
+    font-size: 13px;
+}
+
+.public-offers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+    gap: 13px;
+}
+
+.public-offer-card {
+    padding: 18px;
+    border: 1px solid rgba(17, 17, 17, 0.08);
+    border-radius: 9px;
+    background: #ffffff;
+    box-shadow: 0 7px 20px rgba(17, 17, 17, 0.08);
+}
+
+.public-offer-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.public-offer-campaign {
+    color: #777777;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+.public-offer-discount {
+    color: #e31837;
+    font-size: 13px;
+    font-weight: 900;
+    white-space: nowrap;
+}
+
+.public-offer-card h3 {
+    margin: 10px 0 6px;
+    font-size: 17px;
+}
+
+.public-offer-code {
+    margin: 0 0 6px;
+    color: #555555;
+    font-size: 12px;
+}
+
+.public-offer-code strong {
+    padding: 3px 7px;
+    border: 1px dashed #e31837;
+    border-radius: 4px;
+    color: #b81029;
+    letter-spacing: 0.7px;
+}
+
+.public-offer-terms,
+.public-offer-expiry {
+    margin: 5px 0 0;
+    color: #666666;
+    font-size: 11px;
+}
+
+.public-offer-expiry {
+    color: #888888;
+    font-size: 10px;
+}
+
+.public-offers-message {
+    margin: 0;
+    color: #444444;
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   CAREERS
+========================================================= */
+
+.careers-section {
+    min-height: 400px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 80px 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #222222,
+            #444444
+        );
+
+    color: #ffffff;
+}
+
+.careers-content {
+    max-width: 650px;
+}
+
+.careers-content h2 {
+    font-size: 55px;
+
+    margin: 10px 0;
+}
+
+.careers-content p {
+    color: #dddddd;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================================================
+   EMPLOYEE PORTAL
+========================================================= */
+
+.employee-section {
+    padding: 100px 25px;
+
+    background: #f4f4f4;
+}
+
+.employee-container {
+    max-width: 1100px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 430px;
+
+    gap: 70px;
+
+    align-items: center;
+}
+
+.employee-info h2 {
+    font-size: 58px;
+
+    line-height: 0.95;
+
+    margin: 15px 0 25px;
+}
+
+.employee-info h2 strong {
+    color: #e31837;
+}
+
+.employee-info > p {
+    color: #666666;
+
+    max-width: 500px;
+
+    font-size: 17px;
+
+    margin-bottom: 25px;
+}
+
+.employee-features {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 12px;
+}
+
+.employee-features div {
+    background: #ffffff;
+
+    padding: 14px;
+
+    border-radius: 5px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+
+/* LOGIN */
+
+.login-card {
+    background: #ffffff;
+
+    padding: 35px;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+.login-logo {
+    text-align: center;
+
+    margin-bottom: 20px;
+}
+
+.login-logo img {
+    width: 150px;
+}
+
+.login-card h3 {
+    text-align: center;
+
+    font-size: 25px;
+
+    color: #e31837;
+
+    background: #fff4f6;
+
+    margin: 0 -10px 8px;
+
+    padding: 10px 12px;
+
+    border-radius: 6px;
+
+    border-left: 4px solid #f6c300;
+}
+
+.login-description {
+    text-align: center;
+
+    color: #888888;
+
+    font-size: 13px;
+
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    margin-bottom: 7px;
+}
+
+.role-selector {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+}
+
+.role-selector-label {
+    flex: 0 0 auto;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.role-options {
+    display: flex;
+    flex: 1 1 auto;
+    justify-content: center;
+    min-width: 0;
+    gap: 8px;
+}
+
+.role-option {
+    position: relative;
+    flex: 1 1 0;
+    min-width: 0;
+    margin: 0;
+    cursor: pointer;
+}
+
+.role-option input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.role-option span {
+    display: flex;
+    min-height: 42px;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 10px;
+    border: 1px solid #dddddd;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #444444;
+    font-size: 14px;
+    font-weight: 700;
+    transition: 0.2s;
+}
+
+.role-option:hover span {
+    border-color: #e31837;
+}
+
+.role-option input:checked + span {
+    border-color: #e31837;
+    background: #fff4f6;
+    color: #e31837;
+}
+
+.role-option input:focus-visible + span {
+    outline: 3px solid rgba(227, 24, 55, 0.25);
+    outline-offset: 2px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+
+    padding: 13px 14px;
+
+    border:
+        1px solid #dddddd;
+
+    border-radius: 5px;
+
+    outline: none;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #e31837;
+
+    box-shadow:
+        0 0 0 3px rgba(227, 24, 55, 0.08);
+}
+
+.remember-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 20px;
+
+    font-size: 12px;
+}
+
+.remember-row a {
+    color: #e31837;
+
+    font-weight: 700;
+}
+
+.login-button {
+    width: 100%;
+
+    border: none;
+
+    background: #e31837;
+
+    color: #ffffff;
+
+    padding: 14px;
+
+    border-radius: 5px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: 0.25s;
+}
+
+.login-button:hover {
+    background: #b81029;
+}
+
+.login-message {
+    margin-top: 15px;
+
+    padding: 10px;
+
+    border-radius: 4px;
+
+    display: none;
+
+    font-size: 13px;
+
+    text-align: center;
+}
+
+.login-message.success {
+    display: block;
+
+    background: #e8f7ed;
+
+    color: #16733a;
+}
+
+.login-message.error {
+    display: block;
+
+    background: #fde9ec;
+
+    color: #b81029;
+}
+
+.demo-login {
+    margin-top: 20px;
+
+    padding: 13px;
+
+    background: #f5f5f5;
+
+    border-radius: 5px;
+
+    font-size: 12px;
+
+    line-height: 1.8;
+
+    color: #666666;
+}
+
+.demo-login strong {
+    color: #222222;
+}
+
+.demo-login code {
+    background: #ffffff;
+
+    padding: 3px 6px;
+
+    border-radius: 3px;
+
+    color: #e31837;
+}
+
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+.contact-section {
+    padding: 90px 25px;
+
+    background: #ffffff;
+}
+
+.contact-grid {
+    max-width: 1000px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 25px;
+}
+
+.contact-card {
+    text-align: center;
+
+    padding: 35px 20px;
+
+    background: #f7f7f7;
+
+    border-radius: 8px;
+}
+
+.contact-icon {
+    font-size: 35px;
+
+    margin-bottom: 15px;
+}
+
+.contact-card h3 {
+    margin-bottom: 10px;
+}
+
+.contact-card p {
+    color: #666666;
+
+    font-size: 14px;
+}
+
+.contact-card a {
+    color: #e31837;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+    background: #111111;
+
+    color: #ffffff;
+
+    padding-top: 60px;
+}
+
+.footer-container {
+    max-width: 1150px;
+
+    margin: auto;
+
+    padding: 0 25px 50px;
+
+    display: grid;
+
+    grid-template-columns:
+        1.5fr repeat(3, 1fr);
+
+    gap: 50px;
+}
+
+.footer-brand img {
+    width: 170px;
+
+    margin-bottom: 15px;
+
+    height: auto;
+
+    object-fit: contain;
+}
+
+.footer-brand p {
+    color: #ffffff;
+
+    max-width: 220px;
+
+    font-size: 13px;
+}
+
+.footer-column {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.footer-column h4 {
+    color: #f6c300;
+
+    font-size: 13px;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 8px;
+}
+
+.footer-column a {
+    color: #bbbbbb;
+
+    font-size: 13px;
+
+    transition: 0.2s;
+}
+
+.footer-column a:hover {
+    color: #ffffff;
+}
+
+.footer-bottom {
+    border-top:
+        1px solid #292929;
+
+    padding: 20px 25px;
+
+    text-align: center;
+
+    color: #ffffff;
+
+    font-size: 11px;
+}
+
+.footer-bottom p {
+    color: #ffffff;
+}
+
+.footer-brand-name {
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   RESPONSIVE TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .hero-food-scroll {
+        width: 72%;
+        right: -120px;
+        opacity: 0.75;
+    }
+
+    .navigation {
+        gap: 12px;
+    }
+
+    .navigation a {
+        font-size: 12px;
+    }
+
+    .header-container {
+        gap: 12px;
+    }
+
+    .location-summary {
+        margin-left: 20px;
+
+        margin-right: 20px;
+    }
+
+    .restaurant-container {
+        grid-template-columns: 1fr;
+
+        gap: 45px;
+    }
+
+    .employee-container {
+        grid-template-columns: 1fr;
+
+        max-width: 700px;
+    }
+
+    .employee-info {
+        text-align: center;
+    }
+
+    .employee-info > p {
+        margin-left: auto;
+
+        margin-right: auto;
+    }
+
+    .employee-features {
+        max-width: 600px;
+
+        margin: auto;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE MOBILE
+========================================================= */
+
+@media (max-width: 750px) {
+
+    .header-container {
+        min-height: auto;
+
+        padding: 15px 20px;
+
+        flex-wrap: wrap;
+    }
+
+    .hardees-logo {
+        width: 130px;
+    }
+
+    .navigation {
+        order: 3;
+
+        width: 100%;
+
+        overflow-x: auto;
+
+        justify-content: flex-start;
+
+        padding-bottom: 5px;
+    }
+
+    .navigation a {
+        white-space: nowrap;
+    }
+
+    .order-button {
+        padding: 10px 13px;
+    }
+
+
+    .hero {
+        min-height: 560px;
+    }
+
+    .hero-content {
+        padding: 70px 20px;
+    }
+
+    .hero h1 {
+        font-size: 55px;
+    }
+
+    .hero-description {
+        font-size: 15px;
+    }
+
+
+    .location-summary {
+        grid-template-columns: 1fr;
+
+        margin-top: 0;
+
+        margin-left: 0;
+
+        margin-right: 0;
+
+        border-radius: 0;
+    }
+
+    .location-card {
+        border-right: none;
+
+        border-bottom:
+            1px solid #eeeeee;
+    }
+
+    .location-card:last-child {
+        border-bottom: none;
+    }
+
+
+    .section {
+        padding: 70px 20px;
+    }
+
+    .section-heading h2 {
+        font-size: 38px;
+    }
+
+
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .restaurant-section {
+        padding: 70px 20px;
+    }
+
+    .restaurant-text h2 {
+        font-size: 40px;
+    }
+
+
+    .offers-container {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .offers-container h2 {
+        font-size: 40px;
+    }
+
+    .reward-icon {
+        width: 120px;
+
+        height: 120px;
+
+        font-size: 60px;
+    }
+
+
+    .careers-content h2 {
+        font-size: 42px;
+    }
+
+
+    .employee-section {
+        padding: 70px 20px;
+    }
+
+    .employee-info h2 {
+        font-size: 45px;
+    }
+
+    .employee-features {
+        grid-template-columns: 1fr;
+    }
+
+    .login-card {
+        padding: 25px 20px;
+    }
+
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .footer-container {
+        grid-template-columns: 1fr 1fr;
+
+        gap: 35px;
+    }
+
+    .footer-brand {
+        grid-column: 1 / -1;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL SCREENS
+========================================================= */
+
+@media (max-width: 450px) {
+
+    .header-container {
+        justify-content: center;
+    }
+
+    .logo-link {
+        width: 100%;
+
+        justify-content: center;
+    }
+
+    .order-button {
+        display: none;
+    }
+
+    .navigation {
+        justify-content: center;
+    }
+
+    .hero h1 {
+        font-size: 45px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .hero-buttons a {
+        text-align: center;
+    }
+
+    .restaurant-buttons {
+        flex-direction: column;
+    }
+
+    .restaurant-buttons a {
+        text-align: center;
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr;
+    }
+
+}

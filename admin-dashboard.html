@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Demo Hardee's restaurant admin dashboard.">
+    <title>Admin Dashboard | Hardee's</title>
+    <link rel="stylesheet" href="css/admin-dashboard.css">
+</head>
+<body>
+    <div class="admin-shell">
+        <aside class="admin-sidebar" id="adminSidebar">
+            <a class="admin-logo" href="index.html" aria-label="Hardee's home">
+                <img src="images/new-logo-footer.png" alt="Hardee's">
+            </a>
+            <p class="admin-demo-label"><span></span> DEMO ADMIN SYSTEM</p>
+            <p class="admin-demo-note">Orders and alerts are sample data. Menu and staff changes are saved in this browser.</p>
+
+            <nav class="admin-nav" aria-label="Restaurant administration">
+                <a class="admin-nav-item active" href="#overview" data-section="overview"><span>⌂</span>Overview</a>
+                <a class="admin-nav-item" href="#orders" data-section="orders"><span>▤</span>Orders</a>
+                <a class="admin-nav-item" href="#menu" data-section="menu"><span>▦</span>Food Menu Management</a>
+                <a class="admin-nav-item" href="#offers" data-section="offers"><span>%</span>Offers &amp; Coupons</a>
+                <a class="admin-nav-item" href="#reviews" data-section="reviews"><span>★</span>Reviews &amp; Feedback</a>
+                <a class="admin-nav-item" href="#staff" data-section="staff"><span>♙</span>Staff Management</a>
+                <a class="admin-nav-item" href="#notifications" data-section="notifications"><span>♢</span>Notifications<span class="admin-nav-count" id="unreadNotificationCount" hidden></span></a>
+            </nav>
+
+            <div class="admin-sidebar-bottom">
+                <div class="admin-user"><span>AM</span><div><strong>Alex Morgan</strong><small>Location Admin</small></div></div>
+                <button class="admin-logout" id="adminLogout" type="button">↪ &nbsp; Sign out</button>
+            </div>
+        </aside>
+
+        <main class="admin-main">
+            <header class="admin-topbar">
+                <button class="admin-menu-toggle" id="adminMenuToggle" type="button" aria-label="Open navigation">☰</button>
+                <div><span class="admin-eyebrow">RESTAURANT ADMIN</span><h1>Restaurant Management</h1></div>
+                <div class="admin-topbar-right"><span class="online-dot"></span> Sample order data <span class="admin-date" id="adminDate"></span></div>
+            </header>
+
+            <div class="admin-content" id="overview">
+                <section class="admin-welcome">
+                    <div>
+                        <span class="admin-eyebrow">ROCKINGHAM, NORTH CAROLINA</span>
+                        <h2>Good afternoon, Alex</h2>
+                        <p>Monitor incoming orders, prep progress, and the menu for Hardee's #481.</p>
+                    </div>
+                    <div class="store-status"><span class="store-status-dot"></span><div><strong>Store open</strong><small>Demo operating status</small></div></div>
+                </section>
+
+                <section class="order-metrics" aria-label="Order metrics">
+                    <article class="order-metric"><span class="metric-icon red">▤</span><div><span>Orders today</span><strong id="metricOrders">0</strong><small>All channels</small></div></article>
+                    <article class="order-metric"><span class="metric-icon yellow">◷</span><div><span>Active orders</span><strong id="metricActive">0</strong><small>In prep or awaiting pickup</small></div></article>
+                    <article class="order-metric"><span class="metric-icon green">$</span><div><span>Sales today</span><strong id="metricSales">$0.00</strong><small>Excludes cancelled orders</small></div></article>
+                    <article class="order-metric"><span class="metric-icon neutral">↗</span><div><span>Average order</span><strong id="metricAverage">$0.00</strong><small>Per non-cancelled order</small></div></article>
+                </section>
+
+                <section class="admin-panel orders-panel" id="orders">
+                    <div class="admin-panel-heading">
+                        <div><span class="admin-eyebrow">ORDER OPERATIONS</span><h2>Incoming orders</h2><p>Review each ticket and move it through preparation.</p></div>
+                        <span class="demo-data-tag">SAMPLE DATA</span>
+                    </div>
+                    <div class="order-toolbar">
+                        <label class="order-search"><span class="visually-hidden">Search orders</span><input id="orderSearch" type="search" placeholder="Search order or guest"></label>
+                        <label class="order-status-filter"><span class="visually-hidden">Filter by order status</span><select id="orderStatusFilter"><option value="all">All statuses</option><option value="received">Received</option><option value="preparing">Preparing</option><option value="ready">Ready</option><option value="completed">Completed</option><option value="cancelled">Cancelled</option></select></label>
+                        <button class="refresh-button" id="refreshOrders" type="button">↻ Refresh</button>
+                        <span class="last-updated" id="ordersUpdated">Updated just now</span>
+                    </div>
+                    <div class="orders-table-wrap">
+                        <table class="orders-table">
+                            <thead><tr><th>ORDER</th><th>GUEST / CHANNEL</th><th>ITEMS</th><th>TOTAL</th><th>PLACED</th><th>STATUS</th><th></th></tr></thead>
+                            <tbody id="ordersTableBody"></tbody>
+                        </table>
+                        <div class="empty-orders" id="emptyOrders" hidden>No orders match these filters.</div>
+                    </div>
+                    <p class="admin-disclaimer">Sample orders are local demo data; live orders require integration with the restaurant's POS or ordering provider.</p>
+                </section>
+
+                <section class="admin-panel menu-panel" id="menu">
+                    <div class="admin-panel-heading">
+                        <div><span class="admin-eyebrow">MENU CONTROL</span><h2>Food Menu Management</h2><p>Add, edit, price, categorize, and update food items shown on the public menu.</p></div>
+                        <button class="add-menu-item-button" id="addMenuItemButton" type="button">＋ Add food item</button>
+                    </div>
+                    <div class="menu-toolbar">
+                        <label class="menu-search"><span class="visually-hidden">Search menu</span><input id="menuSearch" type="search" placeholder="Search menu items"></label>
+                        <label class="menu-filter"><span class="visually-hidden">Filter by category</span><select id="menuCategoryFilter"><option value="all">All categories</option></select></label>
+                        <label class="menu-filter"><span class="visually-hidden">Filter by availability</span><select id="menuAvailabilityFilter"><option value="all">All availability</option><option value="available">Available</option><option value="out-of-stock">Out of Stock</option></select></label>
+                        <span class="menu-count" id="menuCount">0 items</span>
+                    </div>
+                    <p class="menu-feedback" id="menuFeedback" role="status" aria-live="polite"></p>
+                    <div class="menu-grid" id="menuGrid"></div>
+                    <div class="empty-menu" id="emptyMenu" hidden>No menu items match these filters.</div>
+                </section>
+
+                <section class="admin-panel offers-panel" id="offers">
+                    <div class="admin-panel-heading">
+                        <div><span class="admin-eyebrow">PROMOTION CONTROL</span><h2>Offers &amp; Coupons</h2><p>Create, schedule, and publish discount codes shown on the public website.</p></div>
+                        <button class="add-offer-button" id="addOfferButton" type="button">＋ Create offer</button>
+                    </div>
+                    <div class="offer-toolbar">
+                        <label class="offer-search"><span class="visually-hidden">Search offers</span><input id="offerSearch" type="search" placeholder="Search offer or coupon code"></label>
+                        <label class="offer-filter"><span class="visually-hidden">Filter offers by status</span><select id="offerStatusFilter"><option value="all">All offers</option><option value="active">Active</option><option value="upcoming">Scheduled</option><option value="expired">Expired</option><option value="disabled">Disabled</option></select></label>
+                        <span class="offer-count" id="offerCount">0 offers</span>
+                    </div>
+                    <p class="offer-feedback" id="offerFeedback" role="status" aria-live="polite"></p>
+                    <div class="admin-offers-grid" id="adminOffersGrid"></div>
+                    <div class="empty-offers" id="emptyOffers" hidden>No offers match these filters.</div>
+                    <p class="admin-disclaimer">Coupons save in this browser and appear on the public offers section. Checkout redemption requires an ordering integration.</p>
+                </section>
+
+                <section class="admin-panel reviews-panel" id="reviews">
+                    <div class="admin-panel-heading">
+                        <div><span class="admin-eyebrow">CUSTOMER VOICE</span><h2>Reviews &amp; Feedback</h2><p>Review ratings, respond to guests, and keep track of unresolved complaints.</p></div>
+                        <span class="demo-data-tag">SAMPLE REVIEWS</span>
+                    </div>
+                    <div class="review-metrics" aria-label="Customer satisfaction summary">
+                        <article class="review-metric"><span>Average rating</span><strong id="averageReviewRating">0.0</strong><small>out of 5 stars</small></article>
+                        <article class="review-metric"><span>Positive ratings</span><strong id="positiveReviewRate">0%</strong><small>4–5 star reviews</small></article>
+                        <article class="review-metric"><span>Open complaints</span><strong id="openComplaintCount">0</strong><small>Awaiting resolution</small></article>
+                    </div>
+                    <div class="review-toolbar">
+                        <label class="review-search"><span class="visually-hidden">Search reviews</span><input id="reviewSearch" type="search" placeholder="Search guest, order, or review"></label>
+                        <label class="review-filter"><span class="visually-hidden">Filter by rating</span><select id="reviewRatingFilter"><option value="all">All ratings</option><option value="positive">Positive · 4–5 stars</option><option value="neutral">Neutral · 3 stars</option><option value="negative">Negative · 1–2 stars</option></select></label>
+                        <label class="review-filter"><span class="visually-hidden">Filter complaints</span><select id="reviewStatusFilter"><option value="all">All feedback</option><option value="complaints">Complaints</option><option value="needs-response">Needs response</option><option value="resolved">Resolved</option></select></label>
+                        <span class="review-count" id="reviewCount">0 reviews</span>
+                    </div>
+                    <p class="review-feedback" id="reviewFeedback" role="status" aria-live="polite"></p>
+                    <div class="review-list" id="reviewList"></div>
+                    <div class="empty-reviews" id="emptyReviews" hidden>No reviews match these filters.</div>
+                    <p class="admin-disclaimer">Reviews and replies are sample records saved in this browser; publishing replies requires a review-platform integration.</p>
+                </section>
+
+                <section class="admin-panel staff-panel" id="staff">
+                    <div class="admin-panel-heading">
+                        <div><span class="admin-eyebrow">TEAM MANAGEMENT</span><h2>Staff Management</h2><p>Manage employee profiles, attendance, shifts, pay rates, and performance.</p></div>
+                        <button class="add-staff-button" id="addStaffButton" type="button">＋ Add employee</button>
+                    </div>
+                    <div class="staff-toolbar">
+                        <label class="staff-search"><span class="visually-hidden">Search employees</span><input id="staffSearch" type="search" placeholder="Search name, email, or role"></label>
+                        <label class="staff-filter"><span class="visually-hidden">Filter by employee status</span><select id="staffStatusFilter"><option value="all">All employees</option><option value="Active">Active</option><option value="Inactive">Inactive</option></select></label>
+                        <span class="staff-count" id="staffCount">0 employees</span>
+                    </div>
+                    <p class="staff-feedback" id="staffFeedback" role="status" aria-live="polite"></p>
+                    <div class="staff-table-wrap">
+                        <table class="orders-table staff-table">
+                            <thead><tr><th>EMPLOYEE</th><th>ROLE</th><th>ATTENDANCE</th><th>SHIFT / SCHEDULE</th><th>PAY RATE</th><th>PERFORMANCE</th><th>STATUS</th><th></th></tr></thead>
+                            <tbody id="staffTableBody"></tbody>
+                        </table>
+                        <div class="empty-staff" id="emptyStaff" hidden>No employees match these filters.</div>
+                    </div>
+                    <p class="admin-disclaimer">Staff records are stored in this browser. Employees continue to use the separate Staff Portal.</p>
+                </section>
+
+                <section class="admin-panel notifications-panel" id="notifications">
+                    <div class="admin-panel-heading">
+                        <div><span class="admin-eyebrow">ACTIVITY CENTER</span><h2>Notifications</h2><p>Keep track of order, reservation, stock, payment, review, and staff updates.</p></div>
+                        <button class="mark-all-read-button" id="markAllNotificationsRead" type="button">Mark all as read</button>
+                    </div>
+                    <div class="notification-toolbar">
+                        <label class="notification-filter"><span class="visually-hidden">Filter notifications</span><select id="notificationFilter"><option value="all">All notifications</option><option value="unread">Unread only</option></select></label>
+                        <span class="notification-count" id="notificationCount">0 notifications</span>
+                    </div>
+                    <p class="notification-feedback" id="notificationFeedback" role="status" aria-live="polite"></p>
+                    <div class="notification-list" id="notificationList"></div>
+                    <div class="empty-notifications" id="emptyNotifications" hidden>No notifications match this filter.</div>
+                    <p class="admin-disclaimer">Notifications are sample activity for this browser; live alerts require ordering, payment, and staff-system integrations.</p>
+                </section>
+            </div>
+        </main>
+    </div>
+    <dialog class="menu-dialog" id="menuDialog" aria-labelledby="menuDialogTitle">
+        <form id="menuItemForm" novalidate>
+            <div class="dialog-heading">
+                <div><span class="admin-eyebrow">MENU ITEM</span><h2 id="menuDialogTitle">Add food item</h2></div>
+                <button class="dialog-close" id="closeMenuDialog" type="button" aria-label="Close menu editor">×</button>
+            </div>
+            <div class="menu-form-grid">
+                <label class="menu-form-field full-width">Food name
+                    <input id="menuItemName" name="name" type="text" maxlength="80" required>
+                </label>
+                <label class="menu-form-field full-width">Description
+                    <textarea id="menuItemDescription" name="description" rows="3" maxlength="240" required></textarea>
+                </label>
+                <label class="menu-form-field">Category
+                    <select id="menuItemCategory" name="category" required></select>
+                </label>
+                <label class="menu-form-field">Price (USD)
+                    <input id="menuItemPrice" name="price" type="number" min="0.01" max="9999" step="0.01" required>
+                </label>
+                <label class="menu-form-field">Food type
+                    <select id="menuItemFoodType" name="foodType" required>
+                        <option value="veg">Veg</option>
+                        <option value="non-veg">Non-Veg</option>
+                    </select>
+                </label>
+                <label class="menu-form-field">Preparation time (minutes)
+                    <input id="menuItemPreparation" name="preparationMinutes" type="number" min="1" max="180" step="1" required>
+                </label>
+                <div class="menu-form-field full-width menu-image-field">
+                    <label for="menuItemImage">Food image <span>(upload required for new items)</span></label>
+                    <input id="menuItemImage" name="image" type="file" accept="image/*">
+                    <img id="menuImagePreview" alt="Menu item preview" hidden>
+                </div>
+                <label class="menu-form-field full-width">Sizes <span>(comma separated)</span>
+                    <input id="menuItemSizes" name="sizes" type="text" placeholder="Small, Medium, Large">
+                </label>
+                <label class="menu-form-field full-width">Toppings <span>(comma separated)</span>
+                    <input id="menuItemToppings" name="toppings" type="text" placeholder="Lettuce, tomato, pickles">
+                </label>
+                <label class="menu-form-field full-width">Extras <span>(comma separated)</span>
+                    <input id="menuItemExtras" name="extras" type="text" placeholder="Extra cheese, bacon">
+                </label>
+                <div class="menu-checkboxes full-width">
+                    <label><input id="menuItemAvailable" type="checkbox" checked> Available</label>
+                    <label><input id="menuItemBestseller" type="checkbox"> Bestseller</label>
+                    <label><input id="menuItemChefSpecial" type="checkbox"> Chef's Special</label>
+                </div>
+            </div>
+            <p class="menu-form-error" id="menuFormError" role="alert"></p>
+            <div class="menu-dialog-actions">
+                <button class="menu-cancel-button" id="cancelMenuEdit" type="button">Cancel</button>
+                <button class="menu-save-button" type="submit">Save food item</button>
+            </div>
+        </form>
+    </dialog>
+    <dialog class="order-dialog" id="orderDialog" aria-labelledby="orderDialogTitle">
+        <div class="dialog-heading"><div><span class="admin-eyebrow">ORDER DETAILS</span><h2 id="orderDialogTitle">Order</h2></div><button class="dialog-close" id="closeOrderDialog" type="button" aria-label="Close order details">×</button></div>
+        <div id="orderDialogContent"></div>
+        <div class="dialog-actions"><button class="cancel-order-button" id="cancelOrderButton" type="button">Cancel order</button><button class="advance-order-button" id="advanceOrderButton" type="button"></button></div>
+    </dialog>
+    <dialog class="menu-dialog staff-dialog" id="staffDialog" aria-labelledby="staffDialogTitle">
+        <form id="staffForm" novalidate>
+            <div class="dialog-heading">
+                <div><span class="admin-eyebrow">EMPLOYEE PROFILE</span><h2 id="staffDialogTitle">Add employee</h2></div>
+                <button class="dialog-close" id="closeStaffDialog" type="button" aria-label="Close employee editor">×</button>
+            </div>
+            <div class="menu-form-grid">
+                <label class="menu-form-field">Name
+                    <input id="staffName" name="name" type="text" maxlength="80" required>
+                </label>
+                <label class="menu-form-field">Phone
+                    <input id="staffPhone" name="phone" type="tel" maxlength="30" required>
+                </label>
+                <label class="menu-form-field full-width">Email
+                    <input id="staffEmail" name="email" type="email" maxlength="120" required>
+                </label>
+                <label class="menu-form-field">Role
+                    <select id="staffRole" name="role" required>
+                        <option>Chef</option>
+                        <option>Waiter</option>
+                        <option>Cashier</option>
+                        <option>Manager</option>
+                        <option>Delivery</option>
+                    </select>
+                </label>
+                <label class="menu-form-field">Attendance
+                    <select id="staffAttendance" name="attendance" required>
+                        <option>Present</option>
+                        <option>Absent</option>
+                        <option>On leave</option>
+                        <option>Off today</option>
+                    </select>
+                </label>
+                <label class="menu-form-field">Shift
+                    <select id="staffShift" name="shift" required>
+                        <option>Opening</option>
+                        <option>Morning</option>
+                        <option>Mid</option>
+                        <option>Evening</option>
+                    </select>
+                </label>
+                <label class="menu-form-field">Work days
+                    <input id="staffWorkDays" name="workDays" type="text" maxlength="60" placeholder="Monday–Friday" required>
+                </label>
+                <label class="menu-form-field">Shift hours
+                    <input id="staffShiftHours" name="shiftHours" type="text" maxlength="40" placeholder="5:30 AM–2:00 PM" required>
+                </label>
+                <label class="menu-form-field">Hourly pay rate (USD)
+                    <input id="staffHourlyRate" name="hourlyRate" type="number" min="0.01" max="500" step="0.01" required>
+                </label>
+                <label class="menu-form-field">Performance score (%)
+                    <input id="staffPerformance" name="performance" type="number" min="0" max="100" step="1" required>
+                </label>
+                <label class="menu-form-field">Employee status
+                    <select id="staffStatus" name="status" required>
+                        <option>Active</option>
+                        <option>Inactive</option>
+                    </select>
+                </label>
+            </div>
+            <p class="staff-form-error" id="staffFormError" role="alert"></p>
+            <div class="staff-dialog-actions">
+                <button class="menu-cancel-button" id="cancelStaffEdit" type="button">Cancel</button>
+                <button class="staff-save-button" type="submit">Save employee</button>
+            </div>
+        </form>
+    </dialog>
+    <dialog class="menu-dialog offer-dialog" id="offerDialog" aria-labelledby="offerDialogTitle">
+        <form id="offerForm" novalidate>
+            <div class="dialog-heading">
+                <div><span class="admin-eyebrow">PROMOTION</span><h2 id="offerDialogTitle">Create offer</h2></div>
+                <button class="dialog-close" id="closeOfferDialog" type="button" aria-label="Close offer editor">×</button>
+            </div>
+            <div class="menu-form-grid">
+                <label class="menu-form-field">Coupon code
+                    <input id="offerCode" name="code" type="text" maxlength="24" pattern="[A-Z0-9_\-]{3,24}" placeholder="WELCOME20" autocapitalize="characters" spellcheck="false" required>
+                </label>
+                <label class="menu-form-field">Offer name
+                    <input id="offerName" name="name" type="text" maxlength="80" placeholder="Welcome discount" required>
+                </label>
+                <label class="menu-form-field">Discount type
+                    <select id="offerDiscountType" name="discountType" required>
+                        <option value="percentage">Percentage discount</option>
+                        <option value="flat">Flat discount</option>
+                        <option value="free-delivery">Free delivery</option>
+                        <option value="bogo">Buy 1 Get 1</option>
+                    </select>
+                </label>
+                <label class="menu-form-field">Campaign
+                    <select id="offerCampaign" name="campaign" required>
+                        <option>Standard</option>
+                        <option>Festive</option>
+                        <option>First order</option>
+                    </select>
+                </label>
+                <label class="menu-form-field" id="offerDiscountValueField">Discount value
+                    <span id="offerDiscountValueUnit">(%)</span>
+                    <input id="offerDiscountValue" name="discountValue" type="number" min="0.01" max="100" step="1" required>
+                </label>
+                <label class="menu-form-field">Minimum order (USD)
+                    <input id="offerMinimumOrder" name="minimumOrder" type="number" min="0" max="9999" step="0.01" required>
+                </label>
+                <label class="menu-form-field" id="offerMaximumDiscountField">Maximum discount (USD)
+                    <input id="offerMaximumDiscount" name="maximumDiscount" type="number" min="0" max="9999" step="0.01">
+                </label>
+                <label class="menu-form-field">Start date
+                    <input id="offerStartDate" name="startDate" type="date" required>
+                </label>
+                <label class="menu-form-field">Expiry date
+                    <input id="offerEndDate" name="endDate" type="date" required>
+                </label>
+                <div class="menu-checkboxes full-width">
+                    <label><input id="offerEnabled" name="enabled" type="checkbox" checked> Enable coupon</label>
+                </div>
+            </div>
+            <p class="offer-form-error" id="offerFormError" role="alert"></p>
+            <div class="offer-dialog-actions">
+                <button class="menu-cancel-button" id="cancelOfferEdit" type="button">Cancel</button>
+                <button class="offer-save-button" type="submit">Save offer</button>
+            </div>
+        </form>
+    </dialog>
+    <script src="js/menu-data.js"></script>
+    <script src="js/promotion-data.js"></script>
+    <script src="js/admin-dashboard.js"></script>
+</body>
+</html>
