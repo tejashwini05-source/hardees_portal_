@@ -3,72 +3,7 @@
     const discountTypes = ["percentage", "flat", "free-delivery", "bogo"];
     const campaignTypes = ["Standard", "Festive", "First order"];
 
-    function toDateInputValue(date) {
-        const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
-        return localDate.toISOString().slice(0, 10);
-    }
-
-    function addDays(date, days) {
-        const result = new Date(date);
-        result.setDate(result.getDate() + days);
-        return toDateInputValue(result);
-    }
-
-    const today = toDateInputValue(new Date());
-    const defaultOffers = [
-        {
-            id: "coupon-welcome20",
-            code: "WELCOME20",
-            name: "Welcome offer",
-            discountType: "percentage",
-            discountValue: 20,
-            minimumOrder: 25,
-            maximumDiscount: 10,
-            campaign: "First order",
-            startDate: today,
-            endDate: addDays(new Date(), 30),
-            enabled: true,
-        },
-        {
-            id: "coupon-festive15",
-            code: "FESTIVE15",
-            name: "Festive favorites",
-            discountType: "percentage",
-            discountValue: 15,
-            minimumOrder: 20,
-            maximumDiscount: 8,
-            campaign: "Festive",
-            startDate: today,
-            endDate: addDays(new Date(), 45),
-            enabled: true,
-        },
-        {
-            id: "coupon-freeship",
-            code: "FREESHIP",
-            name: "Free delivery",
-            discountType: "free-delivery",
-            discountValue: 0,
-            minimumOrder: 15,
-            maximumDiscount: 0,
-            campaign: "Standard",
-            startDate: today,
-            endDate: addDays(new Date(), 30),
-            enabled: true,
-        },
-        {
-            id: "coupon-bogo",
-            code: "BUY1GET1",
-            name: "Burger BOGO",
-            discountType: "bogo",
-            discountValue: 0,
-            minimumOrder: 0,
-            maximumDiscount: 0,
-            campaign: "Standard",
-            startDate: today,
-            endDate: addDays(new Date(), 14),
-            enabled: true,
-        },
-    ];
+    const defaultOffers = [];
 
     function isDate(value) {
         return typeof value === "string" &&

@@ -11,7 +11,7 @@
 
     <title>Hardee's | Rockingham, NC</title>
 
-    <link rel="stylesheet" href="css/style.css?v=4">
+    <link rel="stylesheet" href="css/style.css?v=26">
 </head>
 
 <body>
@@ -53,16 +53,15 @@
 
                 <a href="#menu">Menu</a>
 
-                <a href="#offers">Offers</a>
+                <a href="#offers" hidden>Offers</a>
 
                 <a href="#location">Location</a>
 
                 <a href="#careers">Careers</a>
 
-                <a href="#contact">Contact</a>
-
                 <a href="#employee-login"
-                   class="employee-nav">
+                   class="login-modal-trigger"
+                   aria-haspopup="dialog">
                     Staff/Admin Login
                 </a>
 
@@ -95,22 +94,18 @@
             <div class="hero-food-track">
                 <article class="hero-food-card">
                     <img src="images/menu-burger.jpg" alt="">
-                    <div class="hero-food-label">FAMOUS STAR</div>
                 </article>
 
                 <article class="hero-food-card">
                     <img src="images/menu-biscuit.jpg" alt="">
-                    <div class="hero-food-label">BREAKFAST BISCUIT</div>
                 </article>
 
                 <article class="hero-food-card hero-food-card-copy">
                     <img src="images/menu-burger.jpg" alt="">
-                    <div class="hero-food-label">FAMOUS STAR</div>
                 </article>
 
                 <article class="hero-food-card hero-food-card-copy">
                     <img src="images/menu-biscuit.jpg" alt="">
-                    <div class="hero-food-label">BREAKFAST BISCUIT</div>
                 </article>
             </div>
         </div>
@@ -118,7 +113,7 @@
         <div class="hero-content">
 
             <p class="hero-small">
-                WELCOME TO HARDEE'S
+                WELCOME TO <span class="hero-brand-name">HARDEE'S</span>
             </p>
 
             <h1>
@@ -149,62 +144,22 @@
     </section>
 
 
-    <!-- =====================================================
-         LOCATION INFORMATION
-    ====================================================== -->
+    <section class="hours-summary-section" aria-label="Restaurant hours">
 
-    <section class="location-summary">
+        <div class="hours-card">
 
-        <div class="location-card">
+            <h3>
+                TIMINGS
+            </h3>
 
-            <div class="location-icon">
-                📍
+            <div class="hours-row">
+                <span>Monday – Sunday</span>
+                <strong>5:30 AM – 10:00 PM</strong>
             </div>
 
-            <div>
-                <h3>Rockingham, NC</h3>
-
-                <p>
-                    481 US Highway 1 S
-                    <br>
-                    Rockingham, NC 28379
-                </p>
-            </div>
-
-        </div>
-
-
-        <div class="location-card">
-
-            <div class="location-icon">
-                🕐
-            </div>
-
-            <div>
-                <h3>Open Daily</h3>
-
-                <p>
-                    5:30 AM – 10:00 PM
-                </p>
-            </div>
-
-        </div>
-
-
-        <div class="location-card">
-
-            <div class="location-icon">
-                ☎
-            </div>
-
-            <div>
-                <h3>Call Us</h3>
-
-                <p>
-                    <a href="tel:+19108177055">
-                        (910) 817-7055
-                    </a>
-                </p>
+            <div class="breakfast-note">
+                Breakfast served until approximately
+                <strong>10:30 AM</strong>.
             </div>
 
         </div>
@@ -254,143 +209,156 @@
 
 
     <!-- =====================================================
-         RESTAURANT INFORMATION
-    ====================================================== -->
-
-    <section id="location" class="restaurant-section">
-
-        <div class="restaurant-container">
-
-            <div class="restaurant-text">
-
-                <span class="section-label">
-                    VISIT US
-                </span>
-
-                <h2>
-                    Hardee's
-                    <br>
-                    <strong>481 US Highway 1 S</strong>
-                </h2>
-
-                <p class="address">
-                    Rockingham, NC 28379
-                </p>
-
-                <p>
-                    For a delicious breakfast, lunch or dinner,
-                    stop by our Rockingham location.
-                </p>
-
-                <div class="features">
-
-                    <span>✓ Wi-Fi</span>
-
-                    <span>✓ Drive-Thru</span>
-
-                    <span>✓ Order Ahead</span>
-
-                </div>
-
-
-                <div class="restaurant-buttons">
-
-                    <a
-                        href="https://maps.google.com/maps?q=Hardee%27s,%20481%20US%20Highway%201%20S,%20Rockingham%2028379"
-                        target="_blank"
-                        class="primary-button"
-                    >
-                        GET DIRECTIONS
-                    </a>
-
-                    <a
-                        href="tel:+19108177055"
-                        class="phone-button"
-                    >
-                        📞 (910) 817-7055
-                    </a>
-
-                </div>
-
-            </div>
-
-
-            <!-- HOURS -->
-
-            <div class="hours-card">
-
-                <h3>
-                    RESTAURANT HOURS
-                </h3>
-
-                <div class="hours-row">
-                    <span>Monday – Sunday</span>
-                    <strong>5:30 AM – 10:00 PM</strong>
-                </div>
-
-                <div class="breakfast-note">
-                    Breakfast served until approximately
-                    <strong>10:30 AM</strong>.
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =====================================================
          OFFERS
     ====================================================== -->
 
-    <section id="offers" class="offers-section">
-
-        <div class="offers-container">
-
-            <div>
-
-                <span class="section-label">
-                    MY REWARDS
-                </span>
-
-                <h2>
-                    GET A FREE TASTE
-                    <br>
-                    OF HARDEE'S!
-                </h2>
-
-                <p>
-                    Sign up for My Rewards and enjoy
-                    exclusive offers and rewards.
-                </p>
-
-                <a
-                    href="https://order.hardees.com/account/signup"
-                    target="_blank"
-                    class="dark-button"
-                >
-                    JOIN NOW
-                </a>
-
-            </div>
-
-            <div class="reward-icon">
-                ★
-            </div>
-
-        </div>
+    <section id="offers" class="offers-section" hidden>
 
         <div class="public-offers-block">
             <div class="public-offers-heading">
-                <span class="section-label">CURRENT COUPONS</span>
-                <p>Offers created by the restaurant. Terms and availability may vary.</p>
+                <span class="section-label">CURRENT OFFERS</span>
+                <p>Offers created by Hardee's. Terms and availability may vary.</p>
             </div>
             <div class="public-offers-grid" id="publicOffersGrid"></div>
             <p class="public-offers-message" id="publicOffersMessage" role="status" aria-live="polite"></p>
         </div>
 
     </section>
+
+
+    <section class="restaurant-gallery-section" aria-labelledby="restaurantGalleryTitle">
+
+        <div class="restaurant-gallery-container">
+
+            <div class="section-heading restaurant-gallery-heading">
+                <span>OUR RESTAURANT</span>
+                <h2 id="restaurantGalleryTitle">A LOOK INSIDE HARDEE'S</h2>
+            </div>
+
+            <div class="restaurant-gallery-grid">
+
+                <figure class="restaurant-gallery-card">
+                    <a
+                        class="restaurant-gallery-image"
+                        href="images/gallery-hardees-storefront.png?v=2"
+                        aria-label="View full-size photo: Hardee's storefront and parking area"
+                    >
+                        <img
+                            src="images/gallery-hardees-storefront.png?v=2"
+                            alt="Hardee's storefront and parking area"
+                            width="1043"
+                            height="768"
+                            loading="lazy"
+                            decoding="async"
+                        >
+                    </a>
+                </figure>
+
+                <figure class="restaurant-gallery-card">
+                    <a
+                        class="restaurant-gallery-image"
+                        href="images/gallery-hardees-exterior.png?v=2"
+                        aria-label="View full-size photo: Hardee's restaurant exterior with red signage"
+                    >
+                        <img
+                            src="images/gallery-hardees-exterior.png?v=2"
+                            alt="Hardee's restaurant exterior with red signage"
+                            width="1076"
+                            height="604"
+                            loading="lazy"
+                            decoding="async"
+                        >
+                    </a>
+                </figure>
+
+                <figure class="restaurant-gallery-card">
+                    <a
+                        class="restaurant-gallery-image"
+                        href="images/gallery-coffee-bar.png?v=2"
+                        aria-label="View full-size photo: Coffee and drink station inside a restaurant"
+                    >
+                        <img
+                            src="images/gallery-coffee-bar.png?v=2"
+                            alt="Coffee and drink station inside a restaurant"
+                            width="804"
+                            height="768"
+                            loading="lazy"
+                            decoding="async"
+                        >
+                    </a>
+                </figure>
+
+                <figure class="restaurant-gallery-card">
+                    <a
+                        class="restaurant-gallery-image"
+                        href="images/gallery-dining-area.png?v=2"
+                        aria-label="View full-size photo: Comfortable restaurant booth seating"
+                    >
+                        <img
+                            src="images/gallery-dining-area.png?v=2"
+                            alt="Comfortable restaurant booth seating"
+                            width="1033"
+                            height="768"
+                            loading="lazy"
+                            decoding="async"
+                        >
+                    </a>
+                </figure>
+
+                <figure class="restaurant-gallery-card">
+                    <a
+                        class="restaurant-gallery-image"
+                        href="images/gallery-breakfast-combo.png?v=2"
+                        aria-label="View full-size photo: Breakfast biscuit, hash rounds, and coffee"
+                    >
+                        <img
+                            src="images/gallery-breakfast-combo.png?v=2"
+                            alt="Breakfast biscuit, hash rounds, and coffee"
+                            width="768"
+                            height="1095"
+                            loading="lazy"
+                            decoding="async"
+                        >
+                    </a>
+                </figure>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <dialog
+        id="galleryPhotoModal"
+        class="gallery-photo-modal"
+        aria-label="Full-size gallery photo"
+    >
+        <button
+            type="button"
+            class="gallery-photo-modal-close"
+            id="galleryPhotoModalClose"
+            aria-label="Close photo"
+        >
+            ×
+        </button>
+        <button
+            type="button"
+            class="gallery-photo-modal-previous"
+            id="galleryPhotoModalPrevious"
+            aria-label="Previous photo"
+        >
+            &lt;
+        </button>
+        <button
+            type="button"
+            class="gallery-photo-modal-next"
+            id="galleryPhotoModalNext"
+            aria-label="Next photo"
+        >
+            &gt;
+        </button>
+        <img id="galleryPhotoModalImage" alt="">
+    </dialog>
 
 
     <!-- =====================================================
@@ -431,49 +399,20 @@
          EMPLOYEE LOGIN
     ====================================================== -->
 
-    <section id="employee-login"
-             class="employee-section">
+    <dialog id="employee-login"
+            class="login-modal"
+            aria-labelledby="loginModalTitle">
 
-        <div class="employee-container">
+        <div class="employee-container login-modal-panel">
 
-            <div class="employee-info">
-
-                <span class="section-label">
-                    STAFF PORTAL
-                </span>
-
-                <h2>
-                    <strong>STAFF/ADMIN LOGIN</strong>
-                </h2>
-
-                <p>
-                    Access your employee dashboard,
-                    schedule, hours and simulated
-                    payroll information.
-                </p>
-
-                <div class="employee-features">
-
-                    <div>
-                        ✓ View Schedule
-                    </div>
-
-                    <div>
-                        ✓ View Hours
-                    </div>
-
-                    <div>
-                        ✓ View Pay Statements
-                    </div>
-
-                    <div>
-                        ✓ Staff/Admin Profile
-                    </div>
-
-                </div>
-
-            </div>
-
+            <button
+                type="button"
+                class="login-modal-close"
+                id="loginModalClose"
+                aria-label="Close sign-in dialog"
+            >
+                &times;
+            </button>
 
             <!-- LOGIN CARD -->
 
@@ -488,13 +427,9 @@
 
                 </div>
 
-                <h3>
-                    Staff/Admin Sign In
+                <h3 id="loginModalTitle">
+                    Staff/Admin Portal
                 </h3>
-
-                <p class="login-description">
-                    Staff/Admin demo portal
-                </p>
 
 
                 <form id="loginForm">
@@ -596,103 +531,74 @@
                 ></div>
 
 
-                <div class="demo-login">
-
-                    <strong>Demo Login</strong>
-
-                    <br>
-
-                    Staff / Admin ID:
-                    <code>DEMO1001</code>
-                    /
-                    Password:
-                    <code>Demo@123</code>
-
-                </div>
-
             </div>
 
         </div>
 
-    </section>
+    </dialog>
 
 
     <!-- =====================================================
-         CONTACT
+         RESTAURANT INFORMATION
     ====================================================== -->
 
-    <section id="contact" class="contact-section">
+    <section id="location" class="restaurant-section">
 
-        <div class="section-heading">
+        <div class="restaurant-container">
 
-            <span>
-                CONTACT
-            </span>
+            <div class="restaurant-text">
 
-            <h2>
-                WE'RE HERE TO HELP
-            </h2>
+                <span class="section-label">
+                    VISIT US
+                </span>
 
-        </div>
+                <div class="restaurant-address-card">
+                    <h2>
+                        <span class="restaurant-name">Hardee's</span>
+                        <br>
+                        <strong>481 US Highway 1 S</strong>
+                    </h2>
 
-
-        <div class="contact-grid">
-
-            <div class="contact-card">
-
-                <div class="contact-icon">
-                    📍
+                    <p class="address">
+                        Rockingham, NC 28379
+                    </p>
                 </div>
 
-                <h3>
-                    Address
-                </h3>
+                <div class="restaurant-map">
+                    <iframe
+                        src="https://maps.google.com/maps?q=Hardee%27s%2C%20481%20US%20Highway%201%20S%2C%20Rockingham%2C%20NC%2028379&amp;output=embed"
+                        title="Map to Hardee's at 481 US Highway 1 S, Rockingham, NC"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                    ></iframe>
+                </div>
 
                 <p>
-                    481 US Highway 1 S
-                    <br>
-                    Rockingham, NC 28379
+                    For a delicious breakfast, lunch or dinner,
+                    stop by our Rockingham location.
                 </p>
 
-            </div>
+                <div class="restaurant-buttons">
 
-
-            <div class="contact-card">
-
-                <div class="contact-icon">
-                    ☎
-                </div>
-
-                <h3>
-                    Phone
-                </h3>
-
-                <p>
-                    <a href="tel:+19108177055">
-                        (910) 817-7055
+                    <a
+                        href="https://maps.google.com/maps?q=Hardee%27s,%20481%20US%20Highway%201%20S,%20Rockingham%2028379"
+                        target="_blank"
+                        class="primary-button"
+                    >
+                        GET DIRECTIONS
                     </a>
-                </p>
 
-            </div>
+                    <a
+                        href="tel:+19108177055"
+                        class="phone-button"
+                    >
+                        📞 (910) 817-7055
+                    </a>
 
-
-            <div class="contact-card">
-
-                <div class="contact-icon">
-                    🕐
                 </div>
 
-                <h3>
-                    Hours
-                </h3>
-
-                <p>
-                    Monday – Sunday
-                    <br>
-                    5:30 AM – 10:00 PM
-                </p>
-
             </div>
+
 
         </div>
 
@@ -762,7 +668,7 @@
                     Menu
                 </a>
 
-                <a href="#offers">
+                <a href="#offers" hidden>
                     Offers
                 </a>
 
@@ -770,7 +676,9 @@
                     Location
                 </a>
 
-                <a href="#employee-login">
+                <a href="#employee-login"
+                   class="login-modal-trigger"
+                   aria-haspopup="dialog">
                     Staff/Admin Login
                 </a>
 
@@ -853,6 +761,27 @@
             document.getElementById("mobileNavToggle");
         const siteHeader =
             document.querySelector(".header");
+        const loginModal =
+            document.getElementById("employee-login");
+        const loginModalClose =
+            document.getElementById("loginModalClose");
+        const loginModalTriggers =
+            document.querySelectorAll(".login-modal-trigger");
+        let lastLoginTrigger = null;
+        const galleryPhotoModal =
+            document.getElementById("galleryPhotoModal");
+        const galleryPhotoModalImage =
+            document.getElementById("galleryPhotoModalImage");
+        const galleryPhotoModalClose =
+            document.getElementById("galleryPhotoModalClose");
+        const galleryPhotoModalNext =
+            document.getElementById("galleryPhotoModalNext");
+        const galleryPhotoModalPrevious =
+            document.getElementById("galleryPhotoModalPrevious");
+        const galleryPhotoLinks =
+            Array.from(document.querySelectorAll(".restaurant-gallery-image"));
+        let lastGalleryPhotoTrigger = null;
+        let currentGalleryPhotoIndex = -1;
 
         function closeMobileNavigation() {
             siteHeader.classList.remove("navigation-open");
@@ -873,6 +802,95 @@
 
         document.querySelectorAll(".navigation a").forEach(function(link) {
             link.addEventListener("click", closeMobileNavigation);
+        });
+
+        function closeLoginModal() {
+            if (loginModal.open) {
+                loginModal.close();
+            }
+        }
+
+        loginModalTriggers.forEach(function(trigger) {
+            trigger.addEventListener("click", function(event) {
+                event.preventDefault();
+                closeMobileNavigation();
+                lastLoginTrigger = trigger;
+                loginModal.showModal();
+                document.getElementById("employeeId").focus();
+            });
+        });
+
+        loginModalClose.addEventListener("click", closeLoginModal);
+        loginModal.addEventListener("click", function(event) {
+            if (event.target === loginModal) {
+                closeLoginModal();
+            }
+        });
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape" && loginModal.open) {
+                event.preventDefault();
+                closeLoginModal();
+            }
+
+            if (event.key === "Escape" && galleryPhotoModal.open) {
+                event.preventDefault();
+                galleryPhotoModal.close();
+            }
+        });
+        loginModal.addEventListener("close", function() {
+            const focusTarget =
+                lastLoginTrigger && lastLoginTrigger.closest(".navigation")
+                    ? mobileNavToggle
+                    : lastLoginTrigger;
+
+            if (focusTarget && document.contains(focusTarget)) {
+                focusTarget.focus();
+            }
+        });
+
+        function showGalleryPhoto(index) {
+            const link = galleryPhotoLinks[index];
+            currentGalleryPhotoIndex = index;
+            galleryPhotoModalImage.src = link.href;
+            galleryPhotoModalImage.alt = link.querySelector("img").alt;
+        }
+
+        galleryPhotoLinks.forEach(function(link, index) {
+            link.addEventListener("click", function(event) {
+                event.preventDefault();
+                lastGalleryPhotoTrigger = link;
+                showGalleryPhoto(index);
+                galleryPhotoModal.showModal();
+                galleryPhotoModalClose.focus();
+            });
+        });
+
+        galleryPhotoModalNext.addEventListener("click", function() {
+            const nextIndex =
+                (currentGalleryPhotoIndex + 1) % galleryPhotoLinks.length;
+            showGalleryPhoto(nextIndex);
+        });
+
+        galleryPhotoModalPrevious.addEventListener("click", function() {
+            const previousIndex =
+                (currentGalleryPhotoIndex - 1 + galleryPhotoLinks.length) %
+                galleryPhotoLinks.length;
+            showGalleryPhoto(previousIndex);
+        });
+
+        galleryPhotoModalClose.addEventListener("click", function() {
+            galleryPhotoModal.close();
+        });
+        galleryPhotoModal.addEventListener("click", function(event) {
+            if (event.target === galleryPhotoModal) {
+                galleryPhotoModal.close();
+            }
+        });
+        galleryPhotoModal.addEventListener("close", function() {
+            galleryPhotoModalImage.removeAttribute("src");
+            if (lastGalleryPhotoTrigger && document.contains(lastGalleryPhotoTrigger)) {
+                lastGalleryPhotoTrigger.focus();
+            }
         });
 
         portalRoleInputs.forEach(function(roleInput) {
@@ -942,6 +960,9 @@
             link.addEventListener(
                 "click",
                 function(event) {
+                    if (this.classList.contains("login-modal-trigger")) {
+                        return;
+                    }
 
                     const target =
                         document.querySelector(

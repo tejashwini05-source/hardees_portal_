@@ -31,7 +31,7 @@ function renderPublicMenu() {
         return `
             <article class="menu-card${item.available ? "" : " out-of-stock"}">
                 <div class="food-image">
-                    <img src="${escapeMenuHtml(item.image)}" alt="${escapeMenuHtml(item.name)}">
+                    <img src="${escapeMenuHtml(item.image)}" alt="${escapeMenuHtml(item.name)}" loading="lazy" decoding="async">
                     <span class="menu-stock-badge">${item.available ? "Available" : "Out of Stock"}</span>
                 </div>
                 <div class="menu-content">

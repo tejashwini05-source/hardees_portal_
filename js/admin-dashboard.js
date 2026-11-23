@@ -389,7 +389,11 @@ function renderPromotions() {
 
     document.getElementById("offerCount").textContent =
         `${visibleOffers.length} of ${promotions.length} ${promotions.length === 1 ? "offer" : "offers"}`;
-    document.getElementById("emptyOffers").hidden = visibleOffers.length > 0;
+    const emptyOffers = document.getElementById("emptyOffers");
+    emptyOffers.hidden = visibleOffers.length > 0;
+    emptyOffers.textContent = promotions.length
+        ? "No offers match these filters."
+        : "No offers yet. Create an offer to show it on the public page.";
     adminOffersGrid.innerHTML = visibleOffers.map((offer) => {
         const status = getPromotionStatus(offer);
         const maximum = offer.discountType === "percentage" && offer.maximumDiscount > 0

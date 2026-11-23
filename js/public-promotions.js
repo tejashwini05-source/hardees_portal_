@@ -1,6 +1,8 @@
 (function () {
     const offersGrid = document.getElementById("publicOffersGrid");
     const offersMessage = document.getElementById("publicOffersMessage");
+    const offersSection = document.getElementById("offers");
+    const offersLinks = document.querySelectorAll('a[href="#offers"]');
     const currency = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
@@ -34,6 +36,11 @@
             const offers = window.HardeesPromotions.load().filter((offer) =>
                 offer.enabled && offer.startDate <= today && offer.endDate >= today
             );
+            const hasOffers = offers.length > 0;
+            offersSection.hidden = !hasOffers;
+            offersLinks.forEach((link) => {
+                link.hidden = !hasOffers;
+            });
             offersGrid.innerHTML = offers.map((offer) => {
                 const minimum = offer.minimumOrder > 0
                     ? `Minimum order ${currency.format(offer.minimumOrder)}`
@@ -57,9 +64,13 @@
                         <p class="public-offer-expiry">Valid through ${escapeHtml(validUntil)}</p>
                     </article>`;
             }).join("");
-            offersMessage.textContent = offers.length ? "" : "No current coupons. Check back soon.";
+            offersMessage.textContent = "";
         } catch (error) {
             console.error("Could not load public promotions.", error);
+            offersSection.hidden = false;
+            offersLinks.forEach((link) => {
+                link.hidden = false;
+            });
             offersGrid.replaceChildren();
             offersMessage.textContent = "Current offers are temporarily unavailable.";
         }
