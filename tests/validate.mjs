@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { resolve } from "node:path";
 
 const root = resolve(import.meta.dirname, "..");
@@ -15,18 +15,26 @@ const requiredFiles = [
     "public/js/public-menu.js",
     "public/js/public-promotions.js",
     "data/default-menu.js",
-    "api/auth/login.js",
-    "api/auth/me.js",
-    "api/auth/logout.js",
-    "api/menu.js",
-    "api/promotions.js",
-    "api/staff.js",
-    "api/attendance.js",
-    "api/orders.js",
-    "api/notifications.js",
-    "api/reviews.js",
-    "api/admin/menu.js",
-    "api/admin/promotions.js",
+    "api/[...path].js",
+    "lib/api-routes/auth-login.js",
+    "lib/api-routes/auth-me.js",
+    "lib/api-routes/auth-logout.js",
+    "lib/api-routes/menu.js",
+    "lib/api-routes/promotions.js",
+    "lib/api-routes/staff.js",
+    "lib/api-routes/staff-id.js",
+    "lib/api-routes/attendance.js",
+    "lib/api-routes/orders.js",
+    "lib/api-routes/orders-id.js",
+    "lib/api-routes/notifications.js",
+    "lib/api-routes/notifications-id.js",
+    "lib/api-routes/notifications-read-all.js",
+    "lib/api-routes/reviews.js",
+    "lib/api-routes/reviews-id.js",
+    "lib/api-routes/admin-menu.js",
+    "lib/api-routes/admin-menu-id.js",
+    "lib/api-routes/admin-promotions.js",
+    "lib/api-routes/admin-promotions-id.js",
     "models/User.js",
     "models/MenuItem.js",
     "models/Promotion.js",
@@ -62,6 +70,16 @@ if (missing.length) {
 }
 
 const read = (file) => readFileSync(resolve(root, file), "utf8");
+function collectApiJavaScriptFiles(directory) {
+    return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+        const path = resolve(directory, entry.name);
+        return entry.isDirectory()
+            ? collectApiJavaScriptFiles(path)
+            : entry.isFile() && entry.name.endsWith(".js")
+              ? [path]
+              : [];
+    });
+}
 const packageJson = JSON.parse(read("package.json"));
 const index = read("index.html");
 const publicCss = read("css/style.css");
@@ -74,7 +92,7 @@ const publicPromotionsJs = read("public/js/public-promotions.js");
 const defaultMenu = read("data/default-menu.js");
 const mongoDiagnostic = read("scripts/check-mongodb.js");
 const session = read("lib/session.js");
-const login = read("api/auth/login.js");
+const login = read("lib/api-routes/auth-login.js");
 const rateLimit = read("lib/login-rate-limit.js");
 const projectScripts = [
     index,
@@ -206,6 +224,10 @@ const checks = [
             read("vercel.json").includes('"outputDirectory": "dist"') &&
             read(".env.example").includes("MONGODB_URI="),
         "Vercel output and secret-safe environment configuration are present",
+    ],
+    [
+        collectApiJavaScriptFiles(resolve(root, "api")).length === 1,
+        "the API directory contains one deployable function entry point",
     ],
     [
         packageJson.scripts["dev:vercel"].includes("--env-file-if-exists=.env") &&

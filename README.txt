@@ -70,7 +70,8 @@ VERCEL DEPLOYMENT
 
 1. Import the project into Vercel. The checked-in vercel.json configures the
    Vite build command and `dist` output directory. The `api/` directory
-   contains Node.js serverless functions.
+   contains one catch-all Node.js serverless function; it dispatches the
+   existing API URLs to handler modules under `lib/api-routes/`.
 2. Set MONGODB_URI and JWT_SECRET in Vercel for Production, Preview, and
    Development environments as appropriate. Set MONGODB_DB_NAME only if using
    a database name other than `hardees_portal`; set APP_TIMEZONE to the
