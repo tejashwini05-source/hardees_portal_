@@ -2,9 +2,18 @@
   "name": "hardees_portal",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "vite"
+    "build": "vite build",
+    "dev": "npm run dev:vercel",
+    "dev:vercel": "node --env-file-if-exists=.env --env-file-if-exists=.env.local --run dev:vercel:cli",
+    "dev:vercel:cli": "npx --yes vercel dev --local",
+    "provision:admin": "node --env-file-if-exists=.env --env-file-if-exists=.env.local scripts/provision-admin.js",
+    "check:mongodb": "node --env-file-if-exists=.env --env-file-if-exists=.env.local scripts/check-mongodb.js",
+    "test": "node --test && node tests/validate.mjs"
   },
   "keywords": [],
   "author": "",
@@ -12,5 +21,11 @@
   "description": "",
   "devDependencies": {
     "vite": "^8.3.3"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "jose": "^6.2.18",
+    "mongoose": "^9.12.3",
+    "zod": "^4.6.7"
   }
 }

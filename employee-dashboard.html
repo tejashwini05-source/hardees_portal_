@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Demo employee dashboard for Hardee's Rockingham location.">
+    <meta name="description" content="Secure employee dashboard for Hardee's Rockingham location.">
     <title>Employee Dashboard | Hardee's</title>
     <link rel="stylesheet" href="css/employee-dashboard.css">
 </head>
@@ -14,8 +14,8 @@
                 <a href="index.html" class="sidebar-logo" aria-label="Hardee's home">
                     <img src="images/new-logo.png" alt="Hardee's">
                 </a>
-                <div class="demo-label"><span></span> DEMO EMPLOYEE SYSTEM</div>
-                <p class="demo-note">Simulated demonstration. No payroll or employee records are stored.</p>
+                <div class="demo-label"><span></span> STAFF PORTAL</div>
+                <p class="demo-note">Secure employee workspace.</p>
             </div>
 
             <nav class="sidebar-nav" aria-label="Employee navigation">
@@ -48,10 +48,10 @@
 
             <div class="sidebar-footer">
                 <div class="employee-mini-card">
-                    <div class="avatar">JM</div>
+                    <div class="avatar" id="sidebarEmployeeAvatar">S</div>
                     <div>
-                        <strong>Jordan Miller</strong>
-                        <span>DEMO1001</span>
+                        <strong id="sidebarEmployeeName">Employee</strong>
+                        <span id="sidebarEmployeeId">Staff ID</span>
                     </div>
                 </div>
                 <button class="logout-button" id="logoutButton" type="button">
@@ -68,11 +68,11 @@
                     <h1>My Workspace</h1>
                 </div>
                 <div class="topbar-actions">
-                    <div class="system-status"><span></span> Demo system online</div>
+                    <div class="system-status"><span></span> Portal connected</div>
                     <button class="icon-button" type="button" aria-label="Notifications">◌<i></i></button>
                     <div class="profile-chip">
-                        <span class="avatar small">JM</span>
-                        <div><strong>Jordan Miller</strong><small>Crew Member</small></div>
+                        <span class="avatar small" id="profileChipAvatar">S</span>
+                        <div><strong id="profileChipName">Employee</strong><small id="profileChipRole">Staff</small></div>
                     </div>
                 </div>
             </header>
@@ -80,8 +80,8 @@
             <div class="dashboard-content" id="dashboard">
                 <section class="welcome-row">
                     <div>
-                        <p class="welcome-kicker">MONDAY, <span id="currentDate">October 8, 2026</span></p>
-                        <h2>Welcome back, Jordan!</h2>
+                        <p class="welcome-kicker"><span id="currentWeekday">TODAY</span>, <span id="currentDate">--</span></p>
+                        <h2 id="welcomeHeading">Welcome back!</h2>
                         <p class="welcome-copy">Here is your latest team and work information.</p>
                     </div>
                     <div class="current-time-card">
@@ -95,8 +95,8 @@
                     <article class="hero-card">
                         <div class="hero-card-copy">
                             <span class="card-kicker">TODAY'S SHIFT</span>
-                            <h3>Morning shift</h3>
-                            <p><span>◷</span> 5:30 AM – 2:00 PM</p>
+                            <h3 id="shiftName">Shift</h3>
+                            <p><span>◷</span> <span id="shiftHours">Schedule not set</span></p>
                             <p><span>⌖</span> Rockingham, NC</p>
                         </div>
                         <div class="status-card">
@@ -105,28 +105,28 @@
                             <button class="checkin-button" id="checkInButton" type="button">
                                 <span>✓</span> CHECK IN
                             </button>
-                            <small>Clock in to begin your shift.</small>
+                            <small id="workStatusHint">Clock in to begin your shift.</small>
                         </div>
                     </article>
 
                     <article class="metric-card red-card">
                         <div class="metric-icon">◷</div>
-                        <div><span>Today's worked hours</span><strong id="workedHours">0.0</strong><small>of 8.0 scheduled hours</small></div>
+                        <div><span>Today's worked hours</span><strong id="workedHours">0.0</strong><small>Based on today's clock activity</small></div>
                     </article>
 
                     <article class="metric-card yellow-card">
                         <div class="metric-icon">▥</div>
-                        <div><span>This week's total hours</span><strong>32.0</strong><small>4 hours remaining</small></div>
+                        <div><span>This week's total hours</span><strong id="weekHours">0.0</strong><small>Recorded attendance</small></div>
                     </article>
 
                     <article class="metric-card neutral-card">
                         <div class="metric-icon">★</div>
-                        <div><span>Performance score</span><strong>94</strong><small>Excellent performance</small></div>
+                        <div><span>Performance score</span><strong id="performanceScore">0</strong><small>Latest staff review</small></div>
                     </article>
 
                     <article class="metric-card neutral-card">
                         <div class="metric-icon">✓</div>
-                        <div><span>Attendance percentage</span><strong>98%</strong><small>Last 30 days</small></div>
+                        <div><span>Attendance percentage</span><strong id="attendanceRate">0%</strong><small>Last 30 days</small></div>
                     </article>
                 </section>
 
@@ -136,50 +136,36 @@
                             <div><span class="eyebrow">WORKSPACE</span><h3>Recent activity</h3></div>
                             <button type="button">View all</button>
                         </div>
-                        <div class="activity-list">
-                            <div class="activity-item">
-                                <div class="activity-icon success">✓</div>
-                                <div><strong>Shift completed</strong><p>Yesterday · 5:30 AM – 2:00 PM</p></div>
-                                <span>8.0 hrs</span>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-icon success">✓</div>
-                                <div><strong>Schedule confirmed</strong><p>Today · Morning shift</p></div>
-                                <span>Confirmed</span>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-icon muted">↗</div>
-                                <div><strong>Performance reviewed</strong><p>Monday · Team evaluation</p></div>
-                                <span>94 score</span>
-                            </div>
+                        <div class="activity-list" id="attendanceActivity">
+                            <p>No attendance activity yet.</p>
                         </div>
                     </article>
 
                     <article class="panel upcoming-panel">
                         <div class="panel-heading">
                             <div><span class="eyebrow">NEXT UP</span><h3>Upcoming shift</h3></div>
-                            <span class="date-badge">OCT 09</span>
+                            <span class="date-badge">SCHEDULE</span>
                         </div>
                         <div class="shift-detail">
-                            <div class="shift-date"><strong>09</strong><span>OCT</span></div>
-                            <div><strong>Morning shift</strong><p>5:30 AM – 2:00 PM</p><small>Rockingham, NC · 8 hours</small></div>
+                            <div class="shift-date"><strong>--</strong><span>DAY</span></div>
+                            <div><strong id="upcomingShiftName">Shift not set</strong><p id="upcomingShiftHours">Schedule not set</p><small id="upcomingWorkDays">Work days not set</small></div>
                         </div>
-                        <div class="schedule-row"><span>Shift</span><strong>Opening</strong></div>
+                        <div class="schedule-row"><span>Shift</span><strong id="scheduleShift">Not set</strong></div>
                         <div class="schedule-row"><span>Location</span><strong>Rockingham, NC</strong></div>
                         <button class="secondary-button" type="button">View schedule</button>
                     </article>
                 </section>
 
                 <section class="profile-strip">
-                    <div class="profile-avatar">JM</div>
+                    <div class="profile-avatar" id="employeeProfileAvatar">S</div>
                     <div class="profile-info">
                         <span class="eyebrow">EMPLOYEE PROFILE</span>
-                        <h3>Jordan Miller</h3>
-                        <p>Employee ID: <strong>DEMO1001</strong> · Job title: <strong>Crew Member</strong> · Location: <strong>Rockingham, NC</strong></p>
+                        <h3 id="employeeProfileName">Employee</h3>
+                        <p>Employee ID: <strong id="employeeProfileId">Staff ID</strong> · Job title: <strong id="employeeProfileRole">Staff</strong> · Location: <strong>Rockingham, NC</strong></p>
                     </div>
                     <div class="profile-details">
-                        <div><span>Employee ID</span><strong>DEMO1001</strong></div>
-                        <div><span>Job title</span><strong>Crew Member</strong></div>
+                        <div><span>Employee ID</span><strong id="employeeDetailsId">Staff ID</strong></div>
+                        <div><span>Job title</span><strong id="employeeDetailsRole">Staff</strong></div>
                         <div><span>Location</span><strong>Rockingham, NC</strong></div>
                     </div>
                 </section>
@@ -189,6 +175,6 @@
     </div>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="js/dashboard.js"></script>
+    <script src="/js/dashboard.js"></script>
 </body>
 </html>

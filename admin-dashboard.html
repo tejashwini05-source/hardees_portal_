@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Demo Hardee's restaurant admin dashboard.">
+    <meta name="description" content="Hardee's restaurant administration portal.">
     <title>Admin Dashboard | Hardee's</title>
     <link rel="stylesheet" href="css/admin-dashboard.css">
 </head>
@@ -13,8 +13,8 @@
             <a class="admin-logo" href="index.html" aria-label="Hardee's home">
                 <img src="images/new-logo-footer.png" alt="Hardee's">
             </a>
-            <p class="admin-demo-label"><span></span> DEMO ADMIN SYSTEM</p>
-            <p class="admin-demo-note">Orders and alerts are sample data. Menu and staff changes are saved in this browser.</p>
+            <p class="admin-demo-label"><span></span> ADMINISTRATOR PORTAL</p>
+            <p class="admin-demo-note">Menu, staff, and portal changes are stored securely on the server.</p>
 
             <nav class="admin-nav" aria-label="Restaurant administration">
                 <a class="admin-nav-item active" href="#overview" data-section="overview"><span>⌂</span>Overview</a>
@@ -27,7 +27,7 @@
             </nav>
 
             <div class="admin-sidebar-bottom">
-                <div class="admin-user"><span>AM</span><div><strong>Alex Morgan</strong><small>Location Admin</small></div></div>
+                <div class="admin-user"><span>AD</span><div><strong>Administrator</strong><small>Restaurant Admin</small></div></div>
                 <button class="admin-logout" id="adminLogout" type="button">↪ &nbsp; Sign out</button>
             </div>
         </aside>
@@ -36,17 +36,17 @@
             <header class="admin-topbar">
                 <button class="admin-menu-toggle" id="adminMenuToggle" type="button" aria-label="Open navigation">☰</button>
                 <div><span class="admin-eyebrow">RESTAURANT ADMIN</span><h1>Restaurant Management</h1></div>
-                <div class="admin-topbar-right"><span class="online-dot"></span> Sample order data <span class="admin-date" id="adminDate"></span></div>
+                <div class="admin-topbar-right"><span class="online-dot"></span> Portal workspace <span class="admin-date" id="adminDate"></span></div>
             </header>
 
             <div class="admin-content" id="overview">
                 <section class="admin-welcome">
                     <div>
                         <span class="admin-eyebrow">ROCKINGHAM, NORTH CAROLINA</span>
-                        <h2>Good afternoon, Alex</h2>
+                        <h2>Welcome</h2>
                         <p>Monitor incoming orders, prep progress, and the menu for Hardee's #481.</p>
                     </div>
-                    <div class="store-status"><span class="store-status-dot"></span><div><strong>Store open</strong><small>Demo operating status</small></div></div>
+                    <div class="store-status"><span class="store-status-dot"></span><div><strong>Restaurant portal</strong><small>Management workspace</small></div></div>
                 </section>
 
                 <section class="order-metrics" aria-label="Order metrics">
@@ -59,7 +59,6 @@
                 <section class="admin-panel orders-panel" id="orders">
                     <div class="admin-panel-heading">
                         <div><span class="admin-eyebrow">ORDER OPERATIONS</span><h2>Incoming orders</h2><p>Review each ticket and move it through preparation.</p></div>
-                        <span class="demo-data-tag">SAMPLE DATA</span>
                     </div>
                     <div class="order-toolbar">
                         <label class="order-search"><span class="visually-hidden">Search orders</span><input id="orderSearch" type="search" placeholder="Search order or guest"></label>
@@ -74,7 +73,7 @@
                         </table>
                         <div class="empty-orders" id="emptyOrders" hidden>No orders match these filters.</div>
                     </div>
-                    <p class="admin-disclaimer">Sample orders are local demo data; live orders require integration with the restaurant's POS or ordering provider.</p>
+                    <p class="admin-disclaimer">Orders are stored in the portal database. Live order intake requires integration with the restaurant's POS or ordering provider.</p>
                 </section>
 
                 <section class="admin-panel menu-panel" id="menu">
@@ -106,13 +105,12 @@
                     <p class="offer-feedback" id="offerFeedback" role="status" aria-live="polite"></p>
                     <div class="admin-offers-grid" id="adminOffersGrid"></div>
                     <div class="empty-offers" id="emptyOffers" hidden>No offers yet. Create an offer to show it on the public page.</div>
-                    <p class="admin-disclaimer">Coupons save in this browser and appear on the public offers section. Checkout redemption requires an ordering integration.</p>
+                    <p class="admin-disclaimer">Coupons are stored in the database and appear on the public offers section. Checkout redemption requires an ordering integration.</p>
                 </section>
 
                 <section class="admin-panel reviews-panel" id="reviews">
                     <div class="admin-panel-heading">
                         <div><span class="admin-eyebrow">CUSTOMER VOICE</span><h2>Reviews &amp; Feedback</h2><p>Review ratings, respond to guests, and keep track of unresolved complaints.</p></div>
-                        <span class="demo-data-tag">SAMPLE REVIEWS</span>
                     </div>
                     <div class="review-metrics" aria-label="Customer satisfaction summary">
                         <article class="review-metric"><span>Average rating</span><strong id="averageReviewRating">0.0</strong><small>out of 5 stars</small></article>
@@ -128,7 +126,7 @@
                     <p class="review-feedback" id="reviewFeedback" role="status" aria-live="polite"></p>
                     <div class="review-list" id="reviewList"></div>
                     <div class="empty-reviews" id="emptyReviews" hidden>No reviews match these filters.</div>
-                    <p class="admin-disclaimer">Reviews and replies are sample records saved in this browser; publishing replies requires a review-platform integration.</p>
+                    <p class="admin-disclaimer">Reviews and replies are stored in the database; publishing replies requires a review-platform integration.</p>
                 </section>
 
                 <section class="admin-panel staff-panel" id="staff">
@@ -149,7 +147,7 @@
                         </table>
                         <div class="empty-staff" id="emptyStaff" hidden>No employees match these filters.</div>
                     </div>
-                    <p class="admin-disclaimer">Staff records are stored in this browser. Employees continue to use the separate Staff Portal.</p>
+                    <p class="admin-disclaimer">Staff records are stored in the portal database. Employees continue to use the separate Staff Portal.</p>
                 </section>
 
                 <section class="admin-panel notifications-panel" id="notifications">
@@ -164,7 +162,7 @@
                     <p class="notification-feedback" id="notificationFeedback" role="status" aria-live="polite"></p>
                     <div class="notification-list" id="notificationList"></div>
                     <div class="empty-notifications" id="emptyNotifications" hidden>No notifications match this filter.</div>
-                    <p class="admin-disclaimer">Notifications are sample activity for this browser; live alerts require ordering, payment, and staff-system integrations.</p>
+                    <p class="admin-disclaimer">Notifications are stored in the database; live alerts require ordering, payment, and staff-system integrations.</p>
                 </section>
             </div>
         </main>
@@ -244,6 +242,9 @@
                 </label>
                 <label class="menu-form-field full-width">Email
                     <input id="staffEmail" name="email" type="email" maxlength="120" required>
+                </label>
+                <label class="menu-form-field full-width">Temporary password <span>(required for new accounts; leave blank to keep the current password)</span>
+                    <input id="staffPassword" name="password" type="password" minlength="12" maxlength="128" autocomplete="new-password" required>
                 </label>
                 <label class="menu-form-field">Role
                     <select id="staffRole" name="role" required>
@@ -351,8 +352,6 @@
             </div>
         </form>
     </dialog>
-    <script src="js/menu-data.js"></script>
-    <script src="js/promotion-data.js"></script>
-    <script src="js/admin-dashboard.js"></script>
+    <script src="/js/admin-dashboard.js"></script>
 </body>
 </html>

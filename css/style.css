@@ -19,7 +19,7 @@ body {
         sans-serif;
 
     background-color: #ffffff;
-    background-image: url("../images/menu-burger.jpg");
+    background-image: url("/images/menu-burger.jpg");
     background-position: center top;
     background-size: 100% auto;
     background-repeat: repeat-y;
@@ -548,7 +548,7 @@ input {
     display: grid;
 
     grid-template-columns:
-        repeat(3, 1fr);
+        repeat(4, minmax(0, 1fr));
 
     gap: 25px;
 }
@@ -1667,6 +1667,12 @@ input {
    RESPONSIVE MOBILE
 ========================================================= */
 
+@media (min-width: 751px) and (max-width: 1024px) {
+    .menu-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
 @media (max-width: 750px) {
 
     .header-container {
@@ -1804,9 +1810,18 @@ input {
         margin: 7px 0;
     }
 
-    .menu-content > p,
     .menu-customizations {
         display: none;
+    }
+
+    .menu-content > p {
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        font-size: 12px;
+        line-height: 1.4;
+        margin-bottom: 8px;
     }
 
     .public-menu-footer {
@@ -1906,10 +1921,13 @@ input {
     }
 
     .menu-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 10px;
     }
 
-
+    .food-image {
+        aspect-ratio: 16 / 9;
+    }
 
     .menu-content {
         padding: 9px;
@@ -1917,6 +1935,10 @@ input {
 
     .menu-content h3 {
         font-size: 13px;
+    }
+
+    .menu-content > p {
+        -webkit-line-clamp: 2;
     }
 
     .hero-food-scroll {

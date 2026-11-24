@@ -47,18 +47,9 @@ const currency = new Intl.NumberFormat("en-US", {
     currency: "USD",
 });
 
-const orders = [
-    { id: "HD-48128", guest: "Ava Campbell", channel: "Pickup", placed: "12:31 PM", status: "received", items: [{ name: "Famous Star Combo", quantity: 1, price: 9.99 }, { name: "Medium Fries", quantity: 1, price: 2.49 }] },
-    { id: "HD-48127", guest: "Marcus Reed", channel: "Drive-thru", placed: "12:24 PM", status: "preparing", items: [{ name: "Bacon Beast Burger Combo", quantity: 1, price: 12.49 }, { name: "S'mores Iced Coffee", quantity: 1, price: 3.29 }] },
-    { id: "HD-48126", guest: "Jasmine Cole", channel: "Pickup", placed: "12:18 PM", status: "ready", items: [{ name: "Cinnamon 'N' Raisin Biscuit 2-pack", quantity: 1, price: 3.49 }, { name: "Coffee", quantity: 1, price: 1.89 }] },
-    { id: "HD-48125", guest: "Olivia Grant", channel: "Delivery", placed: "12:12 PM", status: "preparing", items: [{ name: "Hand-Breaded Chicken Biscuit Combo", quantity: 1, price: 10.79 }, { name: "Hash Rounds", quantity: 1, price: 2.29 }] },
-    { id: "HD-48124", guest: "Ethan Brooks", channel: "Dine-in", placed: "11:58 AM", status: "completed", items: [{ name: "Famous Star Combo", quantity: 1, price: 9.99 }] },
-    { id: "HD-48123", guest: "Noah Davis", channel: "Drive-thru", placed: "11:46 AM", status: "completed", items: [{ name: "Super Bacon Biscuit", quantity: 2, price: 5.49 }] },
-    { id: "HD-48122", guest: "Maya Hill", channel: "Pickup", placed: "11:39 AM", status: "cancelled", items: [{ name: "Bacon Beast Burger Combo", quantity: 1, price: 12.49 }] },
-    { id: "HD-48121", guest: "Liam Scott", channel: "Dine-in", placed: "11:31 AM", status: "received", items: [{ name: "S'mores Iced Coffee", quantity: 2, price: 3.29 }, { name: "Cinnamon 'N' Raisin Biscuit 2-pack", quantity: 1, price: 3.49 }] },
-];
-
-let menuItems = window.HardeesMenu.load();
+const menuCategories = ["Starters", "Main Course", "Desserts", "Drinks"];
+let orders = [];
+let menuItems = [];
 
 const statusLabels = {
     received: "Received",
@@ -98,33 +89,8 @@ const notificationIcons = {
     refund: "↺",
     staff: "♙",
 };
-const defaultStaffMembers = [
-    { id: "EMP-1001", name: "Jordan Miller", phone: "(910) 555-0101", email: "jordan.miller@example.com", role: "Cashier", attendance: "Present", shift: "Opening", workDays: "Monday–Friday", shiftHours: "5:30 AM–2:00 PM", hourlyRate: 14.5, performance: 94, status: "Active" },
-    { id: "EMP-1002", name: "Taylor Brooks", phone: "(910) 555-0102", email: "taylor.brooks@example.com", role: "Chef", attendance: "Present", shift: "Morning", workDays: "Monday–Friday", shiftHours: "6:00 AM–2:30 PM", hourlyRate: 18.25, performance: 97, status: "Active" },
-    { id: "EMP-1003", name: "Morgan Lee", phone: "(910) 555-0103", email: "morgan.lee@example.com", role: "Manager", attendance: "Present", shift: "Mid", workDays: "Monday–Friday", shiftHours: "8:00 AM–4:30 PM", hourlyRate: 22, performance: 91, status: "Active" },
-    { id: "EMP-1004", name: "Casey Parker", phone: "(910) 555-0104", email: "casey.parker@example.com", role: "Waiter", attendance: "Absent", shift: "Evening", workDays: "Friday–Tuesday", shiftHours: "2:00 PM–10:00 PM", hourlyRate: 15.5, performance: 82, status: "Active" },
-    { id: "EMP-1005", name: "Avery Diaz", phone: "(910) 555-0105", email: "avery.diaz@example.com", role: "Delivery", attendance: "On leave", shift: "Evening", workDays: "Wednesday–Sunday", shiftHours: "1:00 PM–9:00 PM", hourlyRate: 15.25, performance: 88, status: "Inactive" },
-];
-const defaultNotifications = [
-    { id: "notification-order", type: "order", title: "New pickup order received", detail: "HD-48128 · Ava Campbell · $12.48", time: "2 min ago", read: false },
-    { id: "notification-reservation", type: "reservation", title: "New reservation request", detail: "Party of 4 · Today at 6:30 PM", time: "8 min ago", read: false },
-    { id: "notification-cancellation", type: "cancellation", title: "Order HD-48122 was cancelled", detail: "Pickup order · Maya Hill", time: "14 min ago", read: false },
-    { id: "notification-low-stock", type: "low-stock", title: "Hash Rounds are running low", detail: "Approximately 3 portions remain.", time: "22 min ago", read: false },
-    { id: "notification-review", type: "review", title: "New 5-star review", detail: "“Fast service and a great burger.”", time: "35 min ago", read: false },
-    { id: "notification-payment", type: "payment", title: "Payment received", detail: "HD-48127 · $15.78 · Drive-thru", time: "42 min ago", read: false },
-    { id: "notification-refund", type: "refund", title: "Refund request needs review", detail: "HD-48124 · Guest requested a $9.99 refund.", time: "1 hour ago", read: false },
-    { id: "notification-staff", type: "staff", title: "Attendance alert", detail: "Casey Parker is marked absent for the evening shift.", time: "Today · 2:05 PM", read: false },
-];
-const defaultReviews = [
-    { id: "review-1001", guest: "Sam Rivera", orderId: "HD-48128", date: "Nov 21, 2026", rating: 5, title: "Fresh and delicious", comment: "The Famous Star was fresh, and pickup was quick.", complaint: false, reply: "", resolved: false },
-    { id: "review-1002", guest: "Priya Shah", orderId: "HD-48127", date: "Nov 21, 2026", rating: 4, title: "Great burger", comment: "The burger was great. I would have liked a few more napkins.", complaint: false, reply: "Thanks for the feedback, Priya. We will make sure napkins are included.", resolved: true },
-    { id: "review-1003", guest: "Chris Martin", orderId: "HD-48126", date: "Nov 20, 2026", rating: 3, title: "Good, with room to improve", comment: "The food was good, but my order took a little longer than expected.", complaint: false, reply: "", resolved: false },
-    { id: "review-1004", guest: "Dana Wilson", orderId: "HD-48125", date: "Nov 20, 2026", rating: 2, title: "Fries were cold", comment: "The fries were cold when the delivery arrived.", complaint: true, reply: "", resolved: false },
-    { id: "review-1005", guest: "Jamie Brooks", orderId: "HD-48124", date: "Nov 19, 2026", rating: 1, title: "Long wait", comment: "I waited over 30 minutes and did not receive an update.", complaint: true, reply: "We are sorry about the wait, Jamie. We have reviewed the pickup process with our team.", resolved: true },
-    { id: "review-1006", guest: "Alex Carter", orderId: "HD-48123", date: "Nov 19, 2026", rating: 5, title: "Friendly service", comment: "The team was friendly and my order was exactly right.", complaint: false, reply: "", resolved: false },
-];
-
 let activeOrderId = null;
+let orderDateKey = "";
 let editingMenuItemId = null;
 let editingStaffMemberId = null;
 let editingOfferId = null;
@@ -134,10 +100,43 @@ let staffMembers = [];
 let notifications = [];
 let promotions = [];
 let reviews = [];
-let staffDataReady = true;
-let notificationDataReady = true;
-let promotionDataReady = true;
-let reviewDataReady = true;
+let staffDataReady = false;
+let notificationDataReady = false;
+let promotionDataReady = false;
+let reviewDataReady = false;
+let orderDataReady = false;
+let menuDataReady = false;
+
+async function apiRequest(path, options = {}) {
+    const request = {
+        method: options.method || "GET",
+        credentials: "same-origin",
+        headers: {},
+    };
+    if (options.body !== undefined) {
+        request.headers["Content-Type"] = "application/json";
+        request.body = JSON.stringify(options.body);
+    }
+
+    const response = await fetch(path, request);
+    if (!(response.headers.get("content-type") || "").includes("application/json")) {
+        throw new Error(
+            "The API server is unavailable. Start the website with npm run dev:vercel."
+        );
+    }
+    let result;
+    try {
+        result = await response.json();
+    } catch {
+        throw new Error("The server returned an invalid response.");
+    }
+    if (!response.ok) {
+        const error = new Error(result.error?.message || "The request could not be completed.");
+        error.status = response.status;
+        throw error;
+    }
+    return result;
+}
 
 function escapeHtml(value) {
     return String(value).replace(/[&<>"']/g, (character) => ({
@@ -147,64 +146,6 @@ function escapeHtml(value) {
         '"': "&quot;",
         "'": "&#39;",
     })[character]);
-}
-
-function loadStaffMembers() {
-    const savedMembers = localStorage.getItem("hardeesAdminStaff");
-    const members = savedMembers === null ? defaultStaffMembers : JSON.parse(savedMembers);
-    if (!Array.isArray(members) || members.some((member) =>
-        !member || typeof member.id !== "string" || !member.id ||
-        typeof member.name !== "string" || !member.name.trim() ||
-        typeof member.phone !== "string" || !member.phone.trim() ||
-        typeof member.email !== "string" || !member.email.trim() ||
-        !employeeRoles.includes(member.role) ||
-        !attendanceStatuses.includes(member.attendance) ||
-        !["Opening", "Morning", "Mid", "Evening"].includes(member.shift) ||
-        typeof member.workDays !== "string" || !member.workDays.trim() ||
-        typeof member.shiftHours !== "string" || !member.shiftHours.trim() ||
-        !Number.isFinite(member.hourlyRate) || member.hourlyRate <= 0 ||
-        !Number.isInteger(member.performance) || member.performance < 0 || member.performance > 100 ||
-        !employeeStatuses.includes(member.status)
-    )) {
-        throw new Error("Saved staff records are invalid. Clear the staff data and try again.");
-    }
-    return members;
-}
-
-function loadNotifications() {
-    const savedNotifications = localStorage.getItem("hardeesAdminNotifications");
-    const savedItems = savedNotifications === null ? defaultNotifications : JSON.parse(savedNotifications);
-    if (!Array.isArray(savedItems) || savedItems.some((item) =>
-        !item || typeof item.id !== "string" || !item.id ||
-        !notificationTypes.includes(item.type) ||
-        typeof item.title !== "string" || !item.title.trim() ||
-        typeof item.detail !== "string" ||
-        typeof item.time !== "string" ||
-        typeof item.read !== "boolean"
-    )) {
-        throw new Error("Saved notifications are invalid. Clear the notification data and try again.");
-    }
-    return savedItems;
-}
-
-function loadReviews() {
-    const savedReviews = localStorage.getItem("hardeesAdminReviews");
-    const items = savedReviews === null ? defaultReviews : JSON.parse(savedReviews);
-    if (!Array.isArray(items) || items.some((review) =>
-        !review || typeof review.id !== "string" || !review.id ||
-        typeof review.guest !== "string" || !review.guest.trim() ||
-        typeof review.orderId !== "string" || !review.orderId.trim() ||
-        typeof review.date !== "string" ||
-        !Number.isInteger(review.rating) || review.rating < 1 || review.rating > 5 ||
-        typeof review.title !== "string" || !review.title.trim() ||
-        typeof review.comment !== "string" || !review.comment.trim() ||
-        typeof review.complaint !== "boolean" ||
-        typeof review.reply !== "string" ||
-        typeof review.resolved !== "boolean"
-    )) {
-        throw new Error("Saved review data is invalid. Review or clear the feedback data.");
-    }
-    return items;
 }
 
 function localDateValue(date) {
@@ -248,60 +189,177 @@ function showReviewFeedback(message, isError) {
     reviewFeedback.classList.toggle("error", Boolean(isError));
 }
 
-function persistStaffMembers(nextMembers) {
+async function persistStaffMembers(nextMembers) {
+    const changedMember = nextMembers.find((candidate) => {
+        const existing = staffMembers.find((member) => member.id === candidate.id);
+        return !existing || Object.keys(candidate).some((key) => candidate[key] !== existing[key]);
+    });
+    if (!changedMember) return true;
+
+    const isNew = !staffMembers.some((member) => member.id === changedMember.id);
+    const { id, ...fields } = changedMember;
     try {
-        localStorage.setItem("hardeesAdminStaff", JSON.stringify(nextMembers));
+        const result = await apiRequest(
+            isNew ? "/api/staff" : `/api/staff/${encodeURIComponent(id)}`,
+            {
+                method: isNew ? "POST" : "PATCH",
+                body: isNew ? { staffId: id, ...fields } : fields,
+            }
+        );
+        const savedMember = result.staff;
+        staffMembers = isNew
+            ? [...staffMembers, savedMember]
+            : staffMembers.map((member) => member.id === id ? savedMember : member);
+        renderStaff();
+        return true;
     } catch (error) {
         console.error("Could not save staff records.", error);
-        showStaffFeedback("Could not save staff changes. The browser may be out of storage space.", true);
+        showStaffFeedback(error.message || "Could not save staff changes.", true);
         return false;
     }
-
-    staffMembers = nextMembers;
-    renderStaff();
-    return true;
 }
 
-function persistNotifications(nextNotifications) {
+async function persistNotifications(nextNotifications) {
+    const changed = nextNotifications.filter((item) => {
+        const existing = notifications.find((candidate) => candidate.id === item.id);
+        return existing && item.read !== existing.read;
+    });
+    if (!changed.length) return true;
+
     try {
-        localStorage.setItem("hardeesAdminNotifications", JSON.stringify(nextNotifications));
+        if (changed.length > 1 && nextNotifications.every((item) => item.read)) {
+            await apiRequest("/api/notifications/read-all", { method: "POST" });
+        } else {
+            await Promise.all(changed.map((item) =>
+                apiRequest(`/api/notifications/${encodeURIComponent(item.id)}`, {
+                    method: "PATCH",
+                    body: { read: item.read },
+                })
+            ));
+        }
+        notifications = nextNotifications;
+        renderNotifications();
+        return true;
     } catch (error) {
         console.error("Could not save notification changes.", error);
-        showNotificationFeedback("Could not save notification changes in this browser.", true);
+        showNotificationFeedback(error.message || "Could not save notification changes.", true);
         return false;
     }
-
-    notifications = nextNotifications;
-    renderNotifications();
-    return true;
 }
 
-function persistPromotions(nextOffers) {
+async function persistPromotions(nextOffers) {
+    const changedOffer = nextOffers.find((candidate) => {
+        const existing = promotions.find((offer) => offer.id === candidate.id);
+        return !existing || JSON.stringify(candidate) !== JSON.stringify(existing);
+    });
+    const deletedOffer = promotions.find(
+        (offer) => !nextOffers.some((candidate) => candidate.id === offer.id)
+    );
+    if (!changedOffer && !deletedOffer) return true;
+
     try {
-        window.HardeesPromotions.save(nextOffers);
+        if (deletedOffer) {
+            await apiRequest(`/api/admin/promotions/${encodeURIComponent(deletedOffer.id)}`, {
+                method: "DELETE",
+            });
+            promotions = nextOffers;
+        } else {
+            const isNew = !promotions.some((offer) => offer.id === changedOffer.id);
+            const result = await apiRequest(
+                isNew
+                    ? "/api/admin/promotions"
+                    : `/api/admin/promotions/${encodeURIComponent(changedOffer.id)}`,
+                {
+                    method: isNew ? "POST" : "PATCH",
+                    body: changedOffer,
+                }
+            );
+            const savedOffer = result.offer;
+            promotions = isNew
+                ? [...promotions, savedOffer]
+                : promotions.map((offer) => offer.id === savedOffer.id ? savedOffer : offer);
+        }
+        renderPromotions();
+        return true;
     } catch (error) {
         console.error("Could not save promotions.", error);
-        showOfferFeedback(error.message || "Could not save offers in this browser.", true);
+        showOfferFeedback(error.message || "Could not save offers.", true);
         return false;
     }
-
-    promotions = nextOffers;
-    renderPromotions();
-    return true;
 }
 
-function persistReviews(nextReviews) {
+async function persistReviews(nextReviews) {
+    const changedReview = nextReviews.find((candidate) => {
+        const existing = reviews.find((review) => review.id === candidate.id);
+        return existing && (
+            candidate.reply !== existing.reply ||
+            candidate.resolved !== existing.resolved
+        );
+    });
+    if (!changedReview) return true;
+
     try {
-        localStorage.setItem("hardeesAdminReviews", JSON.stringify(nextReviews));
+        const result = await apiRequest(
+            `/api/reviews/${encodeURIComponent(changedReview.id)}`,
+            {
+                method: "PATCH",
+                body: {
+                    reply: changedReview.reply,
+                    resolved: changedReview.resolved,
+                },
+            }
+        );
+        reviews = reviews.map((review) =>
+            review.id === result.review.id ? result.review : review
+        );
+        renderReviews();
+        return true;
     } catch (error) {
         console.error("Could not save review updates.", error);
-        showReviewFeedback("Could not save review updates in this browser.", true);
+        showReviewFeedback(error.message || "Could not save review updates.", true);
         return false;
     }
+}
 
-    reviews = nextReviews;
-    renderReviews();
-    return true;
+async function persistMenuItems(nextItems) {
+    const changedItem = nextItems.find((candidate) => {
+        const existing = menuItems.find((item) => item.id === candidate.id);
+        return !existing || JSON.stringify(candidate) !== JSON.stringify(existing);
+    });
+    const deletedItem = menuItems.find(
+        (item) => !nextItems.some((candidate) => candidate.id === item.id)
+    );
+    if (!changedItem && !deletedItem) return true;
+
+    try {
+        if (deletedItem) {
+            await apiRequest(`/api/admin/menu/${encodeURIComponent(deletedItem.id)}`, {
+                method: "DELETE",
+            });
+            menuItems = nextItems;
+        } else {
+            const isNew = !menuItems.some((item) => item.id === changedItem.id);
+            const result = await apiRequest(
+                isNew
+                    ? "/api/admin/menu"
+                    : `/api/admin/menu/${encodeURIComponent(changedItem.id)}`,
+                {
+                    method: isNew ? "POST" : "PATCH",
+                    body: changedItem,
+                }
+            );
+            const savedItem = result.item;
+            menuItems = isNew
+                ? [...menuItems, savedItem]
+                : menuItems.map((item) => item.id === savedItem.id ? savedItem : item);
+        }
+        renderMenu();
+        return true;
+    } catch (error) {
+        console.error("Could not save menu changes.", error);
+        showMenuFeedback(error.message || "Could not save menu changes.", true);
+        return false;
+    }
 }
 
 function renderStaff() {
@@ -507,13 +565,16 @@ function orderTotal(order) {
 }
 
 function renderMetrics() {
-    const nonCancelledOrders = orders.filter((order) => order.status !== "cancelled");
+    const ordersToday = orders.filter((order) =>
+        order.dateKey === orderDateKey
+    );
+    const nonCancelledOrders = ordersToday.filter((order) => order.status !== "cancelled");
     const sales = nonCancelledOrders.reduce((total, order) => total + orderTotal(order), 0);
-    const activeCount = orders.filter((order) =>
+    const activeCount = ordersToday.filter((order) =>
         ["received", "preparing", "ready"].includes(order.status)
     ).length;
 
-    document.getElementById("metricOrders").textContent = String(orders.length);
+    document.getElementById("metricOrders").textContent = String(ordersToday.length);
     document.getElementById("metricActive").textContent = String(activeCount);
     document.getElementById("metricSales").textContent = currency.format(sales);
     document.getElementById("metricAverage").textContent = currency.format(
@@ -551,6 +612,9 @@ function renderOrders() {
             </tr>`;
     }).join("");
     emptyOrders.hidden = visibleOrders.length > 0;
+    emptyOrders.textContent = orders.length
+        ? "No orders match these filters."
+        : "No orders yet. Connect an ordering or POS provider to receive live orders.";
     renderMetrics();
 }
 
@@ -611,7 +675,7 @@ function renderMenu() {
 }
 
 function populateMenuCategories() {
-    const options = window.HardeesMenu.categories
+    const options = menuCategories
         .map((category) => `<option value="${escapeHtml(category)}">${escapeHtml(category)}</option>`)
         .join("");
     menuCategoryFilter.insertAdjacentHTML("beforeend", options);
@@ -621,20 +685,6 @@ function populateMenuCategories() {
 function showMenuFeedback(message, isError) {
     menuFeedback.textContent = message;
     menuFeedback.classList.toggle("error", Boolean(isError));
-}
-
-function persistMenuItems(nextItems) {
-    try {
-        window.HardeesMenu.save(nextItems);
-    } catch (error) {
-        console.error("Could not save menu changes.", error);
-        showMenuFeedback("Could not save changes. The browser may be out of storage space.", true);
-        return false;
-    }
-
-    menuItems = nextItems;
-    renderMenu();
-    return true;
 }
 
 function parseMenuChoices(value) {
@@ -656,6 +706,12 @@ function openStaffEditor(member) {
     fields.namedItem("hourlyRate").value = member ? member.hourlyRate : "";
     fields.namedItem("performance").value = member ? member.performance : "";
     fields.namedItem("status").value = member ? member.status : "Active";
+    const passwordInput = fields.namedItem("password");
+    passwordInput.value = "";
+    passwordInput.required = !member;
+    passwordInput.placeholder = member
+        ? "Leave blank to keep the current password"
+        : "Set a temporary password (12+ characters)";
     document.getElementById("staffDialogTitle").textContent = member ? "Edit employee" : "Add employee";
     document.querySelector(".staff-save-button").textContent = member ? "Save changes" : "Add employee";
     staffFormError.textContent = "";
@@ -663,7 +719,7 @@ function openStaffEditor(member) {
     staffDialog.showModal();
 }
 
-function saveStaffForm(event) {
+async function saveStaffForm(event) {
     event.preventDefault();
     staffFormError.textContent = "";
     if (!staffForm.reportValidity()) return;
@@ -694,11 +750,13 @@ function saveStaffForm(event) {
         performance: Number(fields.namedItem("performance").value),
         status: fields.namedItem("status").value,
     };
+    const password = fields.namedItem("password").value;
+    if (password) member.password = password;
     const nextMembers = existingMember
         ? staffMembers.map((candidate) => candidate.id === member.id ? member : candidate)
         : [...staffMembers, member];
 
-    if (persistStaffMembers(nextMembers)) {
+    if (await persistStaffMembers(nextMembers)) {
         staffDialog.close();
         showStaffFeedback(`${member.name} was ${existingMember ? "updated" : "added"}.`, false);
     } else {
@@ -752,7 +810,7 @@ function openOfferEditor(offer) {
     offerDialog.showModal();
 }
 
-function saveOfferForm(event) {
+async function saveOfferForm(event) {
     event.preventDefault();
     offerFormError.textContent = "";
     const codeInput = document.getElementById("offerCode");
@@ -798,7 +856,7 @@ function saveOfferForm(event) {
         ? promotions.map((candidate) => candidate.id === offer.id ? offer : candidate)
         : [...promotions, offer];
 
-    if (persistPromotions(nextOffers)) {
+    if (await persistPromotions(nextOffers)) {
         offerDialog.close();
         showOfferFeedback(`${offer.code} ${existingOffer ? "updated" : "created"} and saved.`, false);
     } else {
@@ -806,7 +864,7 @@ function saveOfferForm(event) {
     }
 }
 
-function saveReviewReply(reviewId) {
+async function saveReviewReply(reviewId) {
     const review = reviews.find((item) => item.id === reviewId);
     const textarea = Array.from(reviewList.querySelectorAll("[data-review-reply]"))
         .find((item) => item.dataset.reviewReply === reviewId);
@@ -818,18 +876,18 @@ function saveReviewReply(reviewId) {
         textarea.focus();
         return;
     }
-    if (persistReviews(reviews.map((item) =>
+    if (await persistReviews(reviews.map((item) =>
         item.id === reviewId ? { ...item, reply } : item
     ))) {
-        showReviewFeedback("Reply saved in this browser. Publishing it requires a review-platform integration.", false);
+        showReviewFeedback("Reply saved. Publishing it requires a review-platform integration.", false);
     }
 }
 
-function toggleReviewResolution(reviewId) {
+async function toggleReviewResolution(reviewId) {
     const review = reviews.find((item) => item.id === reviewId);
     if (!review || !isComplaintReview(review)) return;
     const resolved = !review.resolved;
-    if (persistReviews(reviews.map((item) =>
+    if (await persistReviews(reviews.map((item) =>
         item.id === reviewId ? { ...item, resolved } : item
     ))) {
         showReviewFeedback(`Complaint ${resolved ? "marked resolved" : "reopened"}.`, false);
@@ -850,7 +908,7 @@ function openMenuEditor(item) {
     menuItemForm.reset();
     fields.namedItem("name").value = item ? item.name : "";
     fields.namedItem("description").value = item ? item.description : "";
-    fields.namedItem("category").value = item ? item.category : window.HardeesMenu.categories[0];
+    fields.namedItem("category").value = item ? item.category : menuCategories[0];
     fields.namedItem("price").value = item ? item.price : "";
     fields.namedItem("foodType").value = item ? item.foodType : "non-veg";
     fields.namedItem("preparationMinutes").value = item ? item.preparationMinutes : "";
@@ -918,10 +976,20 @@ function renderOrderDetails(order) {
     cancelOrderButton.hidden = ["completed", "cancelled"].includes(order.status);
 }
 
-function updateOrderStatus(order, status) {
-    order.status = status;
-    renderOrders();
-    renderOrderDetails(order);
+async function updateOrderStatus(order, status) {
+    try {
+        const result = await apiRequest(`/api/orders/${encodeURIComponent(order.id)}`, {
+            method: "PATCH",
+            body: { status },
+        });
+        Object.assign(order, result.order);
+        renderOrders();
+        renderOrderDetails(order);
+    } catch (error) {
+        console.error("Could not update order status.", error);
+        document.getElementById("ordersUpdated").textContent =
+            error.message || "Could not update order status.";
+    }
 }
 
 function updateActiveSection() {
@@ -956,50 +1024,58 @@ function updateActiveSection() {
     adminSidebar.classList.remove("open");
 }
 
-if (sessionStorage.getItem("adminSession") !== "DEMO1001") {
-    window.location.replace("index.html#employee-login");
-} else {
+async function loadDashboardCollection(path, assign, fail) {
+    try {
+        const result = await apiRequest(path);
+        assign(result);
+    } catch (error) {
+        console.error(`Could not load ${path}.`, error);
+        fail(error);
+    }
+}
+
+async function initializeAdminDashboard() {
+    let session;
+    try {
+        session = await apiRequest("/api/auth/me");
+    } catch (error) {
+        if (error.status === 401) {
+            window.location.replace("index.html#employee-login");
+            return;
+        }
+        console.error("Could not verify the administrator session.", error);
+        window.location.replace("index.html#employee-login");
+        return;
+    }
+    if (session.user.role !== "admin") {
+        window.location.replace("index.html#employee-login");
+        return;
+    }
+
+    document.querySelector(".admin-user strong").textContent = session.user.name;
+    document.querySelector(".admin-user small").textContent = "Administrator";
+    document.querySelector(".admin-user > span").textContent = session.user.name
+        .split(/\s+/)
+        .map((part) => part[0])
+        .join("")
+        .slice(0, 2)
+        .toUpperCase();
+    document.querySelector(".admin-welcome h2").textContent =
+        `Welcome, ${session.user.name.split(/\s+/)[0]}`;
     adminDate.textContent = new Date().toLocaleDateString("en-US", {
         weekday: "short",
         month: "short",
         day: "numeric",
     });
-
-    try {
-        staffMembers = loadStaffMembers();
-    } catch (error) {
-        console.error("Could not load staff records.", error);
-        staffDataReady = false;
-        showStaffFeedback(error.message || "Could not load staff records.", true);
-        document.getElementById("addStaffButton").disabled = true;
-    }
-    try {
-        notifications = loadNotifications();
-    } catch (error) {
-        console.error("Could not load notifications.", error);
-        notificationDataReady = false;
-        showNotificationFeedback(error.message || "Could not load notifications.", true);
-        document.getElementById("markAllNotificationsRead").disabled = true;
-    }
-    try {
-        promotions = window.HardeesPromotions.load();
-    } catch (error) {
-        console.error("Could not load promotions.", error);
-        promotionDataReady = false;
-        showOfferFeedback(error.message || "Could not load offers.", true);
-        document.getElementById("addOfferButton").disabled = true;
-    }
-    try {
-        reviews = loadReviews();
-    } catch (error) {
-        console.error("Could not load reviews.", error);
-        reviewDataReady = false;
-        showReviewFeedback(error.message || "Could not load reviews.", true);
-    }
+    populateMenuCategories();
 
     adminMenuToggle.addEventListener("click", () => adminSidebar.classList.toggle("open"));
-    document.getElementById("adminLogout").addEventListener("click", () => {
-        sessionStorage.removeItem("adminSession");
+    document.getElementById("adminLogout").addEventListener("click", async () => {
+        try {
+            await apiRequest("/api/auth/logout", { method: "POST" });
+        } catch (error) {
+            console.error("Could not revoke the administrator session.", error);
+        }
         window.location.href = "index.html#employee-login";
     });
 
@@ -1030,13 +1106,13 @@ if (sessionStorage.getItem("adminSession") !== "DEMO1001") {
     offerForm.addEventListener("submit", saveOfferForm);
     document.getElementById("closeOfferDialog").addEventListener("click", () => offerDialog.close());
     document.getElementById("cancelOfferEdit").addEventListener("click", () => offerDialog.close());
-    adminOffersGrid.addEventListener("click", (event) => {
+    adminOffersGrid.addEventListener("click", async (event) => {
         const toggleButton = event.target.closest("[data-toggle-offer]");
         const editButton = event.target.closest("[data-edit-offer]");
         const deleteButton = event.target.closest("[data-delete-offer]");
         if (toggleButton) {
             const offer = promotions.find((candidate) => candidate.id === toggleButton.dataset.toggleOffer);
-            if (offer && persistPromotions(promotions.map((candidate) =>
+            if (offer && await persistPromotions(promotions.map((candidate) =>
                 candidate.id === offer.id ? { ...candidate, enabled: !candidate.enabled } : candidate
             ))) {
                 showOfferFeedback(`${offer.code} ${offer.enabled ? "disabled" : "enabled"}.`, false);
@@ -1051,7 +1127,7 @@ if (sessionStorage.getItem("adminSession") !== "DEMO1001") {
         if (deleteButton) {
             const offer = promotions.find((candidate) => candidate.id === deleteButton.dataset.deleteOffer);
             if (!offer || !window.confirm(`Delete the ${offer.code} offer?`)) return;
-            if (persistPromotions(promotions.filter((candidate) => candidate.id !== offer.id))) {
+            if (await persistPromotions(promotions.filter((candidate) => candidate.id !== offer.id))) {
                 showOfferFeedback(`${offer.code} was deleted.`, false);
             }
         }
@@ -1060,40 +1136,60 @@ if (sessionStorage.getItem("adminSession") !== "DEMO1001") {
     reviewSearch.addEventListener("input", renderReviews);
     reviewRatingFilter.addEventListener("change", renderReviews);
     reviewStatusFilter.addEventListener("change", renderReviews);
-    reviewList.addEventListener("click", (event) => {
+    reviewList.addEventListener("click", async (event) => {
         if (!reviewDataReady) return;
         const saveButton = event.target.closest("[data-save-review-reply]");
         const resolutionButton = event.target.closest("[data-toggle-review-resolution]");
         if (saveButton) {
-            saveReviewReply(saveButton.dataset.saveReviewReply);
+            await saveReviewReply(saveButton.dataset.saveReviewReply);
             return;
         }
         if (resolutionButton) {
-            toggleReviewResolution(resolutionButton.dataset.toggleReviewResolution);
+            await toggleReviewResolution(resolutionButton.dataset.toggleReviewResolution);
         }
     });
 
     notificationFilter.addEventListener("change", renderNotifications);
-    document.getElementById("markAllNotificationsRead").addEventListener("click", () => {
+    document.getElementById("markAllNotificationsRead").addEventListener("click", async () => {
         if (notificationDataReady) {
-            persistNotifications(notifications.map((item) => ({ ...item, read: true })));
+            try {
+                await apiRequest("/api/notifications/read-all", { method: "POST" });
+                notifications = notifications.map((item) => ({ ...item, read: true }));
+                renderNotifications();
+            } catch (error) {
+                console.error("Could not mark notifications as read.", error);
+                showNotificationFeedback(error.message || "Could not mark notifications as read.", true);
+            }
         }
     });
-    notificationList.addEventListener("click", (event) => {
+    notificationList.addEventListener("click", async (event) => {
         const button = event.target.closest("[data-mark-notification-read]");
         if (!button || !notificationDataReady) return;
         const notificationId = button.dataset.markNotificationRead;
-        persistNotifications(notifications.map((item) =>
+        await persistNotifications(notifications.map((item) =>
             item.id === notificationId ? { ...item, read: true } : item
         ));
     });
 
     orderSearch.addEventListener("input", renderOrders);
     orderStatusFilter.addEventListener("change", renderOrders);
-    document.getElementById("refreshOrders").addEventListener("click", () => {
-        document.getElementById("ordersUpdated").textContent =
-            `Refreshed ${new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}`;
-        renderOrders();
+    document.getElementById("refreshOrders").addEventListener("click", async () => {
+        await loadDashboardCollection(
+            "/api/orders",
+            (result) => {
+                if (!Array.isArray(result.orders)) throw new Error("The orders response is invalid.");
+                orders = result.orders;
+                orderDateKey = result.today;
+                orderDataReady = true;
+                document.getElementById("ordersUpdated").textContent =
+                    `Refreshed ${new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}`;
+                renderOrders();
+            },
+            (error) => {
+                document.getElementById("ordersUpdated").textContent =
+                    error.message || "Could not refresh orders.";
+            }
+        );
     });
 
     ordersTableBody.addEventListener("click", (event) => {
@@ -1106,30 +1202,32 @@ if (sessionStorage.getItem("adminSession") !== "DEMO1001") {
     });
 
     document.getElementById("closeOrderDialog").addEventListener("click", () => orderDialog.close());
-    advanceOrderButton.addEventListener("click", () => {
+    advanceOrderButton.addEventListener("click", async () => {
         const order = orders.find((candidate) => candidate.id === activeOrderId);
         if (!order || !nextOrderStep[order.status]) return;
-        updateOrderStatus(order, nextOrderStep[order.status].status);
+        await updateOrderStatus(order, nextOrderStep[order.status].status);
     });
-    cancelOrderButton.addEventListener("click", () => {
+    cancelOrderButton.addEventListener("click", async () => {
         const order = orders.find((candidate) => candidate.id === activeOrderId);
         if (order && !["completed", "cancelled"].includes(order.status)) {
-            updateOrderStatus(order, "cancelled");
+            await updateOrderStatus(order, "cancelled");
         }
     });
 
-    document.getElementById("addMenuItemButton").addEventListener("click", () => openMenuEditor(null));
+    document.getElementById("addMenuItemButton").addEventListener("click", () => {
+        if (menuDataReady) openMenuEditor(null);
+    });
     menuSearch.addEventListener("input", renderMenu);
     menuCategoryFilter.addEventListener("change", renderMenu);
     menuAvailabilityFilter.addEventListener("change", renderMenu);
 
-    menuGrid.addEventListener("click", (event) => {
+    menuGrid.addEventListener("click", async (event) => {
         const toggleButton = event.target.closest("[data-toggle-menu]");
         const editButton = event.target.closest("[data-edit-menu]");
         const deleteButton = event.target.closest("[data-delete-menu]");
         if (toggleButton) {
             const item = menuItems.find((candidate) => candidate.id === toggleButton.dataset.toggleMenu);
-            if (item && persistMenuItems(menuItems.map((candidate) =>
+            if (item && await persistMenuItems(menuItems.map((candidate) =>
                 candidate.id === item.id ? { ...candidate, available: !candidate.available } : candidate
             ))) {
                 showMenuFeedback(`${item.name} availability updated.`, false);
@@ -1144,7 +1242,7 @@ if (sessionStorage.getItem("adminSession") !== "DEMO1001") {
         if (deleteButton) {
             const item = menuItems.find((candidate) => candidate.id === deleteButton.dataset.deleteMenu);
             if (!item || !window.confirm(`Remove "${item.name}" from the menu?`)) return;
-            if (persistMenuItems(menuItems.filter((candidate) => candidate.id !== item.id))) {
+            if (await persistMenuItems(menuItems.filter((candidate) => candidate.id !== item.id))) {
                 showMenuFeedback(`${item.name} was removed from the menu.`, false);
             }
         }
@@ -1173,7 +1271,7 @@ if (sessionStorage.getItem("adminSession") !== "DEMO1001") {
         }
     });
 
-    menuItemForm.addEventListener("submit", (event) => {
+    menuItemForm.addEventListener("submit", async (event) => {
         event.preventDefault();
         menuFormError.textContent = "";
         if (!menuItemForm.reportValidity()) return;
@@ -1213,7 +1311,7 @@ if (sessionStorage.getItem("adminSession") !== "DEMO1001") {
             ? menuItems.map((candidate) => candidate.id === item.id ? item : candidate)
             : [...menuItems, item];
 
-        if (persistMenuItems(nextItems)) {
+        if (await persistMenuItems(nextItems)) {
             menuDialog.close();
             showMenuFeedback(`${item.name} ${existingItem ? "updated" : "added"} and published to the public menu.`, false);
         } else {
@@ -1225,7 +1323,88 @@ if (sessionStorage.getItem("adminSession") !== "DEMO1001") {
     document.getElementById("cancelMenuEdit").addEventListener("click", () => menuDialog.close());
 
     window.addEventListener("hashchange", updateActiveSection);
-    populateMenuCategories();
+    await Promise.all([
+        loadDashboardCollection(
+            "/api/orders",
+            (result) => {
+                if (!Array.isArray(result.orders)) throw new Error("The orders response is invalid.");
+                orders = result.orders;
+                orderDateKey = result.today;
+                orderDataReady = true;
+            },
+            (error) => {
+                orderDataReady = false;
+                document.getElementById("ordersUpdated").textContent =
+                    error.message || "Could not load orders.";
+            }
+        ),
+        loadDashboardCollection(
+            "/api/admin/menu",
+            (result) => {
+                if (!Array.isArray(result.items)) throw new Error("The menu response is invalid.");
+                menuItems = result.items;
+                menuDataReady = true;
+            },
+            (error) => {
+                menuDataReady = false;
+                document.getElementById("addMenuItemButton").disabled = true;
+                showMenuFeedback(error.message || "Could not load menu items.", true);
+            }
+        ),
+        loadDashboardCollection(
+            "/api/staff",
+            (result) => {
+                if (!Array.isArray(result.staff)) throw new Error("The staff response is invalid.");
+                staffMembers = result.staff;
+                staffDataReady = true;
+            },
+            (error) => {
+                staffDataReady = false;
+                document.getElementById("addStaffButton").disabled = true;
+                showStaffFeedback(error.message || "Could not load staff records.", true);
+            }
+        ),
+        loadDashboardCollection(
+            "/api/admin/promotions",
+            (result) => {
+                if (!Array.isArray(result.offers)) throw new Error("The offers response is invalid.");
+                promotions = result.offers;
+                promotionDataReady = true;
+            },
+            (error) => {
+                promotionDataReady = false;
+                document.getElementById("addOfferButton").disabled = true;
+                showOfferFeedback(error.message || "Could not load offers.", true);
+            }
+        ),
+        loadDashboardCollection(
+            "/api/notifications",
+            (result) => {
+                if (!Array.isArray(result.notifications)) {
+                    throw new Error("The notifications response is invalid.");
+                }
+                notifications = result.notifications;
+                notificationDataReady = true;
+            },
+            (error) => {
+                notificationDataReady = false;
+                document.getElementById("markAllNotificationsRead").disabled = true;
+                showNotificationFeedback(error.message || "Could not load notifications.", true);
+            }
+        ),
+        loadDashboardCollection(
+            "/api/reviews",
+            (result) => {
+                if (!Array.isArray(result.reviews)) throw new Error("The reviews response is invalid.");
+                reviews = result.reviews;
+                reviewDataReady = true;
+            },
+            (error) => {
+                reviewDataReady = false;
+                showReviewFeedback(error.message || "Could not load reviews.", true);
+            }
+        ),
+    ]);
     renderMenu();
     renderOrders();
     renderPromotions();
@@ -1234,3 +1413,8 @@ if (sessionStorage.getItem("adminSession") !== "DEMO1001") {
     renderNotifications();
     updateActiveSection();
 }
+
+initializeAdminDashboard().catch((error) => {
+    console.error("Could not initialize the admin dashboard.", error);
+    window.location.replace("index.html#employee-login");
+});

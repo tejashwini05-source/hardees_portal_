@@ -1,4 +1,6 @@
 (function () {
+    const apiUnavailableMessage =
+        "The API server is unavailable. Start the website with npm run dev:vercel.";
     const offersGrid = document.getElementById("publicOffersGrid");
     const offersMessage = document.getElementById("publicOffersMessage");
     const offersSection = document.getElementById("offers");
@@ -30,10 +32,22 @@
         return "BUY 1 GET 1";
     }
 
-    function renderOffers() {
+    async function renderOffers() {
         try {
+            const response = await fetch("/api/promotions");
+            if (!(response.headers.get("content-type") || "").includes("application/json")) {
+                throw new Error(apiUnavailableMessage);
+            }
+            const result = await response.json();
+            if (!response.ok) {
+                throw new Error(result.error?.message || "Offers could not be loaded.");
+            }
+            if (!Array.isArray(result.offers)) {
+                throw new Error("The offers response is invalid.");
+            }
+
             const today = localDateValue(new Date());
-            const offers = window.HardeesPromotions.load().filter((offer) =>
+            const offers = result.offers.filter((offer) =>
                 offer.enabled && offer.startDate <= today && offer.endDate >= today
             );
             const hasOffers = offers.length > 0;
@@ -72,14 +86,11 @@
                 link.hidden = false;
             });
             offersGrid.replaceChildren();
-            offersMessage.textContent = "Current offers are temporarily unavailable.";
+            offersMessage.textContent = error.message === apiUnavailableMessage
+                ? apiUnavailableMessage
+                : "Current offers are temporarily unavailable.";
         }
     }
 
     renderOffers();
-    window.addEventListener("storage", (event) => {
-        if (event.key === window.HardeesPromotions.storageKey || event.key === null) {
-            renderOffers();
-        }
-    });
 })();

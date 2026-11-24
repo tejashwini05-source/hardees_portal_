@@ -93,19 +93,19 @@
         <div class="hero-food-scroll" aria-hidden="true">
             <div class="hero-food-track">
                 <article class="hero-food-card">
-                    <img src="images/menu-burger.jpg" alt="">
+                    <img src="/images/menu-burger.jpg" alt="">
                 </article>
 
                 <article class="hero-food-card">
-                    <img src="images/menu-biscuit.jpg" alt="">
+                    <img src="/images/menu-biscuit.jpg" alt="">
                 </article>
 
                 <article class="hero-food-card hero-food-card-copy">
-                    <img src="images/menu-burger.jpg" alt="">
+                    <img src="/images/menu-burger.jpg" alt="">
                 </article>
 
                 <article class="hero-food-card hero-food-card-copy">
-                    <img src="images/menu-biscuit.jpg" alt="">
+                    <img src="/images/menu-biscuit.jpg" alt="">
                 </article>
             </div>
         </div>
@@ -733,18 +733,9 @@
          JAVASCRIPT
     ====================================================== -->
 
-    <script src="js/menu-data.js"></script>
-    <script src="js/public-menu.js"></script>
-    <script src="js/promotion-data.js"></script>
-    <script src="js/public-promotions.js"></script>
+    <script src="/js/public-menu.js"></script>
+    <script src="/js/public-promotions.js"></script>
     <script>
-
-        /*
-         * SIMULATED STAFF / ADMIN LOGIN
-         *
-         * This is only a demo.
-         * It does NOT connect to a real payroll system.
-         */
 
         const loginForm =
             document.getElementById("loginForm");
@@ -903,50 +894,49 @@
         });
 
 
-        loginForm.addEventListener(
-            "submit",
-            function(event) {
+        loginForm.addEventListener("submit", async function(event) {
+            event.preventDefault();
+            const submitButton = loginForm.querySelector('button[type="submit"]');
+            submitButton.disabled = true;
+            loginMessage.className = "login-message";
+            loginMessage.textContent = "Signing in...";
 
-                event.preventDefault();
-
-                const employeeId =
-                    document.getElementById(
-                        "employeeId"
-                    ).value.trim();
-
-                const password =
-                    document.getElementById(
-                        "password"
-                    ).value;
+            try {
                 const role =
                     portalRole.querySelector('input[name="portalRole"]:checked').value;
-                const isAdmin = role === "admin";
-                const validCredentials =
-                    employeeId === "DEMO1001" && password === "Demo@123";
-
-                if (validCredentials) {
-                    if (isAdmin) {
-                        sessionStorage.removeItem("employeeSession");
-                        sessionStorage.setItem("adminSession", employeeId);
-                        window.location.href = "admin-dashboard.html";
-                    } else {
-                        sessionStorage.removeItem("adminSession");
-                        sessionStorage.setItem("employeeSession", employeeId);
-                        window.location.href = "employee-dashboard.html";
-                    }
-
-                } else {
-
-                    loginMessage.className =
-                        "login-message error";
-
-                    loginMessage.textContent =
-                        `Invalid demo ${isAdmin ? "Admin" : "Staff"} ID or password.`;
-
+                const response = await fetch("/api/auth/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    credentials: "same-origin",
+                    body: JSON.stringify({
+                        staffId: document.getElementById("employeeId").value.trim(),
+                        password: document.getElementById("password").value,
+                        role,
+                        rememberMe: document.getElementById("remember").checked,
+                    }),
+                });
+                if (!(response.headers.get("content-type") || "").includes("application/json")) {
+                    throw new Error(
+                        "The API server is unavailable. Start the website with npm run dev:vercel."
+                    );
+                }
+                const result = await response.json();
+                if (!response.ok) {
+                    throw new Error(result.error?.message || "Sign in failed.");
                 }
 
+                window.location.href =
+                    role === "admin" ? "admin-dashboard.html" : "employee-dashboard.html";
+            } catch (error) {
+                loginMessage.className = "login-message error";
+                loginMessage.textContent =
+                    error instanceof Error
+                        ? error.message
+                        : "Sign in failed. Please try again.";
+            } finally {
+                submitButton.disabled = false;
             }
-        );
+        });
 
 
         /*
